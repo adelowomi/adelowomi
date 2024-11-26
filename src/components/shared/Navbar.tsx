@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 'use client';
 import React from 'react'
 import { usePathname } from 'next/navigation'

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import React from "react";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Archivo, Besley } from 'next/font/google'
@@ -38,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${archivo.variable} ${besley.variable}`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-primary`}
       >
         {children}
       </body>
