@@ -18,7 +18,7 @@ const VideoView = () => {
 
             <div className="absolute bottom-0 left-0 flex flex-col w-full h-[145px] py-4 pr-6 pl-12 bg-[#0D090080] gap-3">
                 <h1 className="text-primary text-xl font-semibold">Video Caption</h1>
-                <p className='text-primary text-lg font-normal'>A full stack developer, crafting magnificent websites and applications. And when I'm not coding, I unleash my creative spirit, diving headfirst into the world of music.</p>
+                <p className='text-primary text-lg font-normal'>A full stack developer, crafting magnificent websites and applications. And when I&apos;m not coding, I unleash my creative spirit, diving headfirst into the world of music.</p>
             </div>
         </div>
     </div>

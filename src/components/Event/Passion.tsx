@@ -8,7 +8,7 @@ const Passion = () => {
                 <h1 className='text-primary text-[40px] font-semibold'>PASSION IN ACTION</h1>
                 <hr className='w-[100px] rounded-xl bg-[#8F6302] border-[#8F6302] h-[4px]'/>
             </div>
-            <p className='text-primary text-[20px] font-normal'>Join me, a full stack developer, mentor, and creative, as I host inspiring meetups for aspiring tech enthusiasts. These events are crafted to equip you with insider insights, career tips, and practical knowledge about the tech industry, whether you're a beginner or already on your tech journey.</p>
+            <p className='text-primary text-[20px] font-normal'>Join me, a full stack developer, mentor, and creative, as I host inspiring meetups for aspiring tech enthusiasts. These events are crafted to equip you with insider insights, career tips, and practical knowledge about the tech industry, whether you&apos;re a beginner or already on your tech journey.</p>
         </div>
         
         <div className='grid grid-cols-2 content-center flex-wrap gap-16 px-20 py-4 w-[1200px]'>

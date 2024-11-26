@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 const Hero = () => {
   return (
@@ -14,7 +15,7 @@ const Hero = () => {
                 <h1 className='mt-[258px] text-[#8F6302] text-[48px] font-semibold font-besley'>HELLO!</h1>         
             </div>
             <div>
-                <img src="/assets/hero.png" alt="" />
+                <Image src="/assets/hero.png" alt="" width={500} height={500} />
             </div>
         </div>
         <div className='px-28 w-[80%] space-y-3'>
