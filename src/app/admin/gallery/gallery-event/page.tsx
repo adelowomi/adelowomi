@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '@/components/shared/Sidebar'
 import AdminNavbar from '@/components/shared/AdminNavbar'
-import DasboardView from '@/components/Dashboard/DasboardView'
+import GalleryEvent from '@/components/AdminGallery/GalleryEvent'
 
 const page = () => {
   return (
@@ -9,9 +9,9 @@ const page = () => {
       <div className='w-[18%] border-r border-[#FCFCFC33] h-[873px]'>
         <Sidebar />
       </div>
-      <div className='flex-1 m-10 flex flex-col gap-28'>
+      <div className='flex-grow m-10 flex flex-col gap-28'>
         <AdminNavbar />
-        <DasboardView/>
+        <GalleryEvent />
       </div>
     </div>
   )
