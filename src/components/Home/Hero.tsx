@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react'
 import Image from 'next/image'
+import { LogoIcon } from '@/icons'
 
 const Hero = () => {
   return (
@@ -8,15 +9,13 @@ const Hero = () => {
         <div className='flex flex-row'>
             <div className='flex flex-col px-28 py-16'>
                 <div>
-                    <svg width="81" height="100" viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 43.1111L7.17172 28.8889M34 43.1111L27.7778 29.4222M21.5556 15.7333L16.2222 4L7.17172 28.8889M21.5556 15.7333L12.6667 43.1111M21.5556 15.7333L27.7778 29.4222M7.17172 28.8889L27.7778 29.4222" stroke="#FCFCFC" stroke-width="3"/>
-                    </svg>
+                    <LogoIcon />
                 </div>
-                <h1 className='w-[519px] text-[#fcfcfc] text-[96px] mt-8 font-besley'>Adelowo Ajibola</h1>
-                <h1 className='mt-[258px] text-[#8F6302] text-[48px] font-semibold font-besley'>HELLO!</h1>         
+                <h1 className='w-[519px] text-primary text-[96px] mt-8 font-besley'>Adelowo Ajibola</h1>
+                <h1 className='mt-[258px] text-secondary text-[48px] font-semibold font-besley'>HELLO!</h1>         
             </div>
             <div>
-                <Image src="/assets/hero.png" alt="" width={500} height={500} />
+                <Image src="/assets/hero.png" alt="" width={600} height={700} />
             </div>
         </div>
         <div className='px-28 w-[80%] space-y-3'>
