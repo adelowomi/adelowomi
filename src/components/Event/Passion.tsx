@@ -6,7 +6,7 @@ const Passion = () => {
         <div className='flex flex-col gap-6'>
             <div className='flex flex-col gap-1'>
                 <h1 className='text-primary text-[40px] font-semibold font-archivo'>PASSION IN ACTION</h1>
-                <hr className='w-[100px] rounded-xl bg-secondary border-secondary h-[4px]'/>
+                <hr className='horizontal-line'/>
             </div>
             <p className='text-primary text-[20px] font-normal font-archivo'>Join me, a full stack developer, mentor, and creative, as I host inspiring meetups for aspiring tech enthusiasts. These events are crafted to equip you with insider insights, career tips, and practical knowledge about the tech industry, whether you&apos;re a beginner or already on your tech journey.</p>
         </div>

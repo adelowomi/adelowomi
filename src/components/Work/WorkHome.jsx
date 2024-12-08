@@ -2,45 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import Button from '../ui/Button'
+import { DownloadIcon, Icon1, Icon2, Icon3 } from '@/icons'
 
-const DownloadIcon = () => (
-    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6.5 20C5.95 20 5.479 19.804 5.087 19.412C4.695 19.02 4.49934 18.5493 4.5 18V15H6.5V18H18.5V15H20.5V18C20.5 18.55 20.304 19.021 19.912 19.413C19.52 19.805 19.0493 20.0007 18.5 20H6.5ZM12.5 16L7.5 11L8.9 9.55L11.5 12.15V4H13.5V12.15L16.1 9.55L17.5 11L12.5 16Z" fill="#FCFCFC"/>
-    </svg>
-  );
-
-const Icon1 = () => (
-    <svg width="424" height="688" viewBox="0 0 424 688" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M128.259 527.68C156.081 379.607 196.926 283.573 312.623 230.643" stroke="#8F6302"/>
-<path d="M340.686 209.547L322.727 248.911L297.685 213.611L340.686 209.547Z" fill="#8F6302"/>
-<path d="M120.834 562.213L108.912 520.587L150.829 531.081L120.834 562.213Z" fill="#8F6302"/>
-<rect x="109.471" y="166.292" width="98.7495" height="384" rx="49.3748" transform="rotate(-9.5449 109.471 166.292)" fill="#0D0900" stroke="#FCFCFC"/>
-<rect x="228.624" y="348.558" width="99.7495" height="314" rx="49.8748" transform="rotate(-9.5449 228.624 348.558)" fill="#FCFCFC"/>
-<rect x="0.939941" y="53.2236" width="99.7495" height="314" rx="49.8748" transform="rotate(-9.5449 0.939941 53.2236)" fill="#FCFCFC"/>
-</svg>
-)
-
-const Icon2 = () => (
-    <svg width="423" height="688" viewBox="0 0 423 688" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M127.319 527.519C155.141 379.446 195.986 283.412 311.683 230.482" stroke="#FCFCFC"/>
-<path d="M297.653 213.866L338.933 209.965L321.693 247.753L297.653 213.866Z" fill="#FCFCFC" stroke="#FCFCFC"/>
-<path d="M148.929 531.195L120.136 561.081L108.691 521.121L148.929 531.195Z" fill="#FCFCFC" stroke="#FCFCFC"/>
-<rect x="108.531" y="166.131" width="98.7495" height="384" rx="49.3748" transform="rotate(-9.5449 108.531 166.131)" fill="#0D0900" stroke="#FCFCFC"/>
-<rect x="227.684" y="348.396" width="99.7495" height="314" rx="49.8748" transform="rotate(-9.5449 227.684 348.396)" fill="#8F6302"/>
-<rect y="53.0625" width="99.7495" height="314" rx="49.8748" transform="rotate(-9.5449 0 53.0625)" fill="#8F6302"/>
-</svg>
-)
-
-const Icon3 = () => (
-    <svg width="424" height="688" viewBox="0 0 424 688" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M128.259 527.68C156.081 379.607 196.926 283.573 312.623 230.643" stroke="#8F6302"/>
-<path d="M340.686 209.547L322.727 248.911L297.685 213.611L340.686 209.547Z" fill="#8F6302"/>
-<path d="M120.834 562.213L108.912 520.587L150.829 531.081L120.834 562.213Z" fill="#8F6302"/>
-<rect x="109.471" y="166.292" width="98.7495" height="384" rx="49.3748" transform="rotate(-9.5449 109.471 166.292)" fill="#0D0900" stroke="#FCFCFC"/>
-<rect x="228.624" y="348.558" width="99.7495" height="314" rx="49.8748" transform="rotate(-9.5449 228.624 348.558)" fill="#FCFCFC"/>
-<rect x="0.939941" y="53.2236" width="99.7495" height="314" rx="49.8748" transform="rotate(-9.5449 0.939941 53.2236)" fill="#FCFCFC"/>
-</svg>
-)
 
 const WorkHome = () => {
     const [activeIcon, setActiveIcon] = useState(0);
