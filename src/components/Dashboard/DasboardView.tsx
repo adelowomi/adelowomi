@@ -1,15 +1,16 @@
 import React from 'react'
 import DashboardCard from '../ui/DashboardCard'
+import { EventCalendarIcon, ImagesIcon, VideosIcon } from '@/icons'
 
 const DasboardView = () => {
   return (
     <div className='flex flex-col gap-28'>
       <div className='grid grid-cols-3 gap-5'>
-          <DashboardCard/>
+          <DashboardCard availableNumber={25} type='Events' svg={<EventCalendarIcon />}/>
 
-          <DashboardCard/>
+          <DashboardCard availableNumber={25} type='Images' svg={<ImagesIcon />}/>
 
-          <DashboardCard/>
+          <DashboardCard availableNumber={25} type='Videos' svg={<VideosIcon />}/>
       </div>
       <div className='border-[0.5px] border-solid border-[#FCFCFC1A] rounded-lg pt-8 pr-5 pb-20 pl-8 items-center'>
         <div className='flex '>

@@ -1,9 +1,17 @@
 /* eslint-disable react/no-unknown-property */
+'use client'
+
 import React from 'react'
 import Button from '../ui/Button'
 import { ArrowIcon } from '@/icons'
+import { useRouter } from 'next/navigation'
 
 const Events = () => {
+    const router = useRouter();
+
+    const redirectUser = () => {
+        router.push('/event/register-event')
+    }
   return (
     <div className='px-28 py-24 flex flex-col gap-20'>
         <h1 className='text-primary text-center font-semibold text-[48px] uppercase font-besley'>Upcoming Event</h1>
@@ -21,7 +29,7 @@ const Events = () => {
                     <span className='font-archivo text-[20px] font-medium text-primary'>Time: 11a.m WAT</span>
                     <span className='font-archivo text-[20px] font-medium text-primary'>Venue: Venue of Event</span>
                 </div>
-                <Button text="Register Now" svg={<ArrowIcon />}/>
+                <Button text="Register Now" svg={<ArrowIcon />} onClick={redirectUser}/>
             </div>
         </div>
     </div>
