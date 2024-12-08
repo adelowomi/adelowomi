@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Button from '../ui/Button'
-import { DownloadIcon, Icon1, Icon2, Icon3 } from '@/icons'
+import { DownloadIcon, Icon1, Icon2, Icon3, LogoIcon } from '@/icons'
 
 
 const WorkHome = () => {
@@ -44,20 +44,7 @@ const WorkHome = () => {
       <div className="flex flex-row px-28 py-24 items-center justify-between">
         <div className="flex flex-col gap-20">
           <div className="flex justify-center items-center w-20 h-20 bg-transparent">
-            <svg
-              width="81"
-              height="100"
-              viewBox="0 0 36 44"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="animate-spin-slow"
-            >
-              <path
-                d="M2 43.1111L7.17172 28.8889M34 43.1111L27.7778 29.4222M21.5556 15.7333L16.2222 4L7.17172 28.8889M21.5556 15.7333L12.6667 43.1111M21.5556 15.7333L27.7778 29.4222M7.17172 28.8889L27.7778 29.4222"
-                stroke="#FCFCFC"
-                strokeWidth="3"
-              />
-            </svg>
+            <LogoIcon />
           </div>
   
           <div className={`flex flex-col gap-6 w-[687px] transition-opacity duration-500 ${

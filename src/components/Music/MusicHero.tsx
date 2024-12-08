@@ -1,14 +1,13 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react'
+import { LogoIcon } from '@/icons'
 
 const MusicHero = () => {
   return (
     <div className='bg-hero-pattern bg-cover bg-center flex flex-col gap-[533px]'>
         <div className='flex justify-between items-center mx-28 mt-8'>
             <div>
-                <svg width="81" height="100" viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 43.1111L7.17172 28.8889M34 43.1111L27.7778 29.4222M21.5556 15.7333L16.2222 4L7.17172 28.8889M21.5556 15.7333L12.6667 43.1111M21.5556 15.7333L27.7778 29.4222M7.17172 28.8889L27.7778 29.4222" stroke="#FCFCFC" stroke-width="3"/>
-                </svg>
+                <LogoIcon />
             </div>
             <h1 className='text-primary text-[64px] font-semibold uppercase font-besley'>Music</h1>
         </div>

@@ -1,6 +1,15 @@
+'use client'
+
 import React from 'react'
+import { useRouter } from 'next/navigation'
 
 const Gallery = () => {
+    const router = useRouter()
+
+    const redirectUser = () => {
+        router.push('/event/gallery')
+    }
+
   return (
     <div className='flex flex-col gap-8 mx-28 my-10'>
         <div className='flex flex-col gap-6'>
@@ -15,7 +24,7 @@ const Gallery = () => {
 
                 <div className="absolute bottom-0 left-0 flex flex-col w-full py-5 px-5 bg-[#0D090080] gap-4">
                     <h1 className="text-primary text-xl font-semibold font-archivo">Event Caption</h1>
-                    <p className='text-secondary text-lg font-normal font-besley'>View all images</p>
+                    <p className='text-secondary text-lg font-normal font-besley cursor-pointer' onClick={redirectUser}>View all images</p>
                 </div>
             </div>
 
@@ -23,28 +32,28 @@ const Gallery = () => {
                 <div className="rounded-lg bg-[#8f8c8c] relative">
                     <div className="absolute bottom-0 left-0 flex flex-col w-full py-5 px-5 bg-[#0D090080] gap-4">
                         <h1 className="text-primary text-xl font-semibold font-archivo">Event Caption</h1>
-                        <p className='text-secondary text-lg font-normal font-besley'>View all images</p>
+                        <p className='text-secondary text-lg font-normal font-besley cursor-pointer' onClick={redirectUser}>View all images</p>
                     </div>
                 </div>
 
                 <div className="rounded-lg bg-[#8f8c8c] relative">
                     <div className="absolute bottom-0 left-0 flex flex-col w-full py-5 px-5 bg-[#0D090080] gap-4">
                         <h1 className="text-primary text-xl font-semibold font-archivo">Event Caption</h1>
-                        <p className='text-secondary text-lg font-normal font-besley'>View all images</p>
+                        <p className='text-secondary text-lg font-normal font-besley cursor-pointer' onClick={redirectUser}>View all images</p>
                     </div>
                 </div>
 
                 <div className="rounded-lg bg-[#8f8c8c] relative">
                     <div className="absolute bottom-0 left-0 flex flex-col w-full py-5 px-5 bg-[#0D090080] gap-4">
                         <h1 className="text-primary text-xl font-semibold font-archivo">Event Caption</h1>
-                        <p className='text-secondary text-lg font-normal font-besley'>View all images</p>
+                        <p className='text-secondary text-lg font-normal font-besley cursor-pointer' onClick={redirectUser}>View all images</p>
                     </div>
                 </div>
 
                 <div className="rounded-lg bg-[#8f8c8c] relative">
                     <div className="absolute bottom-0 left-0 flex flex-col w-full py-5 px-5 bg-[#0D090080] gap-4">
                         <h1 className="text-primary text-xl font-semibold font-archivo">Event Caption</h1>
-                        <p className='text-secondary text-lg font-normal font-besley'>View all images</p>
+                        <p className='text-secondary text-lg font-normal font-besley cursor-pointer' onClick={redirectUser}>View all images</p>
                     </div>
                 </div>
             </div>
