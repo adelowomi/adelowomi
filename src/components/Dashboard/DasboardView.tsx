@@ -41,14 +41,14 @@ const DasboardView = () => {
                 <div className='flex flex-col gap-10 px-16 my-8'>
                     <div className='flex flex-col gap-2'>
                         <h1 className='text-3xl font-semibold text-primary'>Event Caption</h1>
-                        <hr className='w-[100px] rounded-xl bg-[#8F6302] border-[#8F6302] h-[4px]'/>
+                        <hr className='w-[100px] rounded-xl bg-[#732383] border-[#732383] h-[4px]'/>
                     </div>
                     <div className='flex flex-col gap-4'>
                         <h2 className='text-[20px] text-primary font-normal'>Date: 25th November </h2>
                         <h2 className='text-[20px] text-primary font-normal'>Time: 11am WAT</h2>
                         <h2 className='text-[20px] text-primary font-normal'>Venue: Venue of Event</h2>
                     </div>
-                    <button className='flex justify-center items-center w-[242px] px-8 py-3 gap-2 bg-[#8F6302] rounded-lg'>
+                    <button className='flex justify-center items-center w-[242px] px-8 py-3 gap-2 bg-[#732383] rounded-lg'>
                         Register Now
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_40_133)">

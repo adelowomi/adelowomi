@@ -14,7 +14,7 @@ const Hero = () => {
           <h1 className="w-[519px] text-primary text-[96px] mt-8 font-besley">
             Adelowo Ajibola
           </h1>
-          <h1 className="mt-[258px] text-secondary text-[48px] font-semibold font-besley">
+          <h1 className="mt-[258px] purple-gradient-text text-[48px] font-semibold font-besley">
             HELLO!
           </h1>
         </div>

@@ -11,7 +11,7 @@ const Vision = () => {
                 <hr className='horizontal-line'/>
             </div>
             <p className='text-[20px] font-normal text-primary font-archivo'>Catch my latest insights on coding, creativity, and career growth in tech. Dive into quick, value-packed videos that keep you inspired and ready for the next level!</p>
-            <button className='flex justify-center items-center w-[242px] px-8 py-3 gap-2 bg-[#8F6302] rounded-lg font-archivo'>
+            <button className='flex justify-center items-center w-[242px] px-8 py-3 gap-2 button-gradient rounded-lg font-archivo'>
                 Visit Channel
                 <ArrowIcon/>
             </button>

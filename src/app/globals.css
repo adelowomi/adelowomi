@@ -3,18 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --font-archivo: 'Archivo', sans-serif;
-  --font-besley: 'Besley', serif;
+  --background: #1a0d1f;
+  --foreground: #fcfcfc;
+  --font-archivo: "Archivo", sans-serif;
+  --font-besley: "Besley", serif;
+  --purple-primary: #732383;
+  --purple-accent: #b73fa0;
+  --purple-light: #9f3596;
+  --purple-dark: #5a1c66;
+  --surface: #2a1d2f;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --font-archivo: 'Archivo', sans-serif;
-    --font-besley: 'Besley', serif;
+    --background: #1a0d1f;
+    --foreground: #fcfcfc;
+    --font-archivo: "Archivo", sans-serif;
+    --font-besley: "Besley", serif;
   }
 }
 
@@ -26,9 +31,44 @@ body {
 
 .text-stroke {
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #8F6302;
+  -webkit-text-stroke-color: #732383;
 }
 
 .horizontal-line {
-  @apply w-[100px] h-[4px] rounded-xl bg-[#8F6302] border border-[#8F6302];
+  @apply w-[100px] h-[4px] rounded-xl bg-secondary border border-secondary;
+}
+
+.purple-gradient {
+  background: linear-gradient(135deg, #732383 0%, #b73fa0 100%);
+}
+
+.purple-gradient-text {
+  background: linear-gradient(135deg, #732383 0%, #b73fa0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.button-gradient {
+  background: linear-gradient(135deg, #732383 0%, #9f3596 50%, #b73fa0 100%);
+  transition: all 0.3s ease;
+}
+
+.button-gradient:hover {
+  background: linear-gradient(135deg, #5a1c66 0%, #732383 50%, #9f3596 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(115, 35, 131, 0.3);
+}
+
+.surface-gradient {
+  background: linear-gradient(135deg, #2a1d2f 0%, #1a0d1f 100%);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(115, 35, 131, 0.2);
 }

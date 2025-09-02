@@ -63,12 +63,12 @@ const RegistrantPage = () => {
         <h2 className='text-[#fff] text-[16px] font-archivo font-light'>20 out of 50</h2>
         <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="#8F6302"/>
+            <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="#732383"/>
           </svg>
         </button>
         <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9.99984 6L8.58984 7.41L13.1698 12L8.58984 16.59L9.99984 18L15.9998 12L9.99984 6Z" fill="#8F6302"/>
+                <path d="M9.99984 6L8.58984 7.41L13.1698 12L8.58984 16.59L9.99984 18L15.9998 12L9.99984 6Z" fill="#732383"/>
             </svg>
         </button>
       </div>

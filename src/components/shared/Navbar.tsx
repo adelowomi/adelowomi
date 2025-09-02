@@ -43,7 +43,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div>
-        <button className="px-6 py-3 rounded-lg border-2 border-solid border-secondary font-archivo text-secondary flex justify-center items-center gap-2">
+        <button className="px-6 py-3 rounded-lg button-gradient font-archivo text-primary flex justify-center items-center gap-2 hover:shadow-lg transition-all duration-300">
           Say Hello
           <HelloIcon />
         </button>

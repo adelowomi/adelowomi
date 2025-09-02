@@ -27,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({ isVisible, onClose, children, onNoContent
   
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-[#0D0900] rounded-lg w-[886px] py-4 px-16">
+        <div className="bg-[bg-surface] rounded-lg w-[886px] py-4 px-16">
           <div className='flex justify-between my-2'>
             <div></div>
             <div onClick={onClose} className='cursor-pointer'>
