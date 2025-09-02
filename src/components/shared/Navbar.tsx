@@ -1,52 +1,61 @@
 /* eslint-disable react/no-unknown-property */
-'use client';
-import React from 'react'
-import { usePathname } from 'next/navigation'
-import Link from 'next/link';
-import { HelloIcon } from '@/icons';
+"use client";
+import React from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import { HelloIcon } from "@/icons";
 
 const Navbar = () => {
-
   const pathname = usePathname();
 
   const links = [
-    { href: '/', label: 'Home' },
-    { href: '/work', label: 'Work' },
-    { href: '/music', label: 'Music' },
-    { href: '/event', label: 'Event' },
-]
+    { href: "/", label: "Home" },
+    { href: "/work", label: "Work" },
+    { href: "/music", label: "Music" },
+    { href: "/event", label: "Event" },
+  ];
 
   return (
-    <div className='flex justify-between px-28 py-4'>
-        <div className='flex'>
-          <ul className='flex justify-between gap-12'>
-            {links.map((link) => {
-                      const isActive =
-                          link.href === '/'
-                              ? pathname === link.href 
-                              : pathname.startsWith(link.href); 
+    <div className="flex justify-between items-center px-28 py-4">
+      <div className="flex items-center gap-12">
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/assets/logo-primary.svg"
+            alt="Adelowo Ajibola Logo"
+            width={40}
+            height={40}
+            className="w-10 h-10"
+          />
+        </Link>
+        <ul className="flex justify-between gap-12">
+          {links.map((link) => {
+            const isActive =
+              link.href === "/"
+                ? pathname === link.href
+                : pathname.startsWith(link.href);
 
-                      return (
-                          <li
-                              key={link.href}
-                              className={`font-normal font-archivo uppercase text-xl ${
-                                  isActive ? 'text-secondary' : 'text-primary'
-                              }`}
-                          >
-                              <Link href={link.href}>{link.label}</Link>
-                          </li>
-                      );
-                  })}
-            </ul>
-        </div>
-        <div>
-            <button className='px-6 py-3 rounded-lg border-2 border-solid border-secondary font-archivo text-secondary flex justify-center items-center gap-2'>
-              Say Hello
-              <HelloIcon />
-            </button>
-        </div>
+            return (
+              <li
+                key={link.href}
+                className={`font-normal font-archivo uppercase text-xl ${
+                  isActive ? "text-secondary" : "text-primary"
+                }`}
+              >
+                <Link href={link.href}>{link.label}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div>
+        <button className="px-6 py-3 rounded-lg border-2 border-solid border-secondary font-archivo text-secondary flex justify-center items-center gap-2">
+          Say Hello
+          <HelloIcon />
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
