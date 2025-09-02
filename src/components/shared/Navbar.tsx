@@ -3,8 +3,8 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
-import { HelloIcon } from "@/icons";
+
+import { HelloIcon, LogoIcon } from "@/icons";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -20,13 +20,7 @@ const Navbar = () => {
     <div className="flex justify-between items-center px-28 py-4">
       <div className="flex items-center gap-12">
         <Link href="/" className="flex items-center">
-          <Image
-            src="/assets/logo-primary.svg"
-            alt="Adelowo Ajibola Logo"
-            width={40}
-            height={40}
-            className="w-10 h-10"
-          />
+          <LogoIcon />
         </Link>
         <ul className="flex justify-between gap-12">
           {links.map((link) => {

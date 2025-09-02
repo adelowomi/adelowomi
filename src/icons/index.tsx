@@ -292,9 +292,31 @@ export const Icon3 = () => (
   </svg>
 );
 
+import Image from "next/image";
+
 export const LogoIcon = () => (
-  <img
+  <Image
     src="/assets/logo-primary.svg"
+    alt="Adelowo Ajibola Logo"
+    width={81}
+    height={100}
+    className="w-20 h-25"
+  />
+);
+
+export const LogoSecondaryIcon = () => (
+  <Image
+    src="/assets/logo-secondary.svg"
+    alt="Adelowo Ajibola Logo"
+    width={40}
+    height={48}
+    className="w-10 h-12"
+  />
+);
+
+export const LogoTertiaryIcon = () => (
+  <Image
+    src="/assets/logo-tertiary.svg"
     alt="Adelowo Ajibola Logo"
     width={81}
     height={100}

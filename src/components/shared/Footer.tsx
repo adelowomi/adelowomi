@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import { LogoSecondaryIcon } from "@/icons";
 
 const Footer = () => {
   const handleRedirect = (type: string) => {
@@ -100,13 +100,7 @@ const Footer = () => {
         </span>
       </div>
       <div>
-        <Image
-          src="/assets/logo-secondary.svg"
-          alt="Adelowo Ajibola Logo"
-          width={40}
-          height={48}
-          className="w-10 h-12"
-        />
+        <LogoSecondaryIcon />
       </div>
       <div className="text-lg text-primary font-">
         © 2024 Adelowo Ajibola. All right reserved

@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LogoIcon } from "@/icons";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -12,13 +12,7 @@ const Sidebar = () => {
   return (
     <div className="flex flex-col items-center my-20 mx-10 gap-28">
       <div className="ml-6">
-        <Image
-          src="/assets/logo-primary.svg"
-          alt="Adelowo Ajibola Logo"
-          width={81}
-          height={100}
-          className="w-20 h-25"
-        />
+        <LogoIcon />
       </div>
       <div className="flex flex-col gap-5">
         <Link href="/admin/dashboard">
