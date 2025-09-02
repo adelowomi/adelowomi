@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id            String         @id @default(cuid())
+  title         String
+  description   String?        @db.Text
+  date          DateTime
+  time          String
+  venue         String
+  capacity      Int
+  flyerUrl      String?
+  status        EventStatus    @default(ACTIVE)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  registrations Registration[]
+  galleries     Gallery[]
+  videos        Video[]
+}
+
+model Registration {
+  id              String           @id @default(cuid())
+  eventId         String
+  firstName       String
+  lastName        String
+  email           String
+  phone           String
+  status          StudentStatus
+  course          String?
+  areaOfInterest  String
+  expectations    String?         @db.Text
+  registeredAt    DateTime        @default(now())
+  event           Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, email])
+}
+
+model Gallery {
+  id          String   @id @default(cuid())
+  eventId     String?
+  title       String
+  driveFileId String
+  driveUrl    String
+  thumbnailUrl String?
+  createdAt   DateTime @default(now())
+  event       Event?   @relation(fields: [eventId], references: [id], onDelete: SetNull)
+}
+
+model Video {
+  id          String      @id @default(cuid())
+  eventId     String?
+  title       String
+  description String?     @db.Text
+  driveFileId String
+  driveUrl    String
+  thumbnailUrl String?
+  category    VideoCategory @default(EVENT)
+  createdAt   DateTime    @default(now())
+  event       Event?      @relation(fields: [eventId], references: [id], onDelete: SetNull)
+}
+
+enum Role {
+  ADMIN
+}
+
+enum EventStatus {
+  ACTIVE
+  INACTIVE
+  COMPLETED
+}
+
+enum StudentStatus {
+  STUDENT
+  GRADUATE
+}
+
+enum VideoCategory {
+  EVENT
+  CONTENT
+  PROMOTIONAL
+}
