@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import AdminVideoContent from "../shared/AdminVideoContent";
-import { VideoCategory } from "@prisma/client";
+import { VideoCategory } from "@/types/prisma.types";
 
 interface Video {
   id: string;

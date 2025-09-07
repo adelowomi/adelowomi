@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { VideoCategory } from "@prisma/client";
+import { VideoCategory } from "@/types/prisma.types";
 import { formatDistanceToNow } from "date-fns";
 
 interface Video {

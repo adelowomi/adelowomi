@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import AdminVideoCard from "./AdminVideoCard";
 import AdminVideoPagination from "./AdminVideoPagination";
-import { VideoCategory } from "@prisma/client";
+import { VideoCategory } from "@/types/prisma.types";
 
 interface Video {
   id: string;

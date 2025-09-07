@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
-import { QuestionType } from "@prisma/client";
+import { QuestionType } from "@/types/prisma.types";
 import Image from "next/image";
 import { getGoogleDriveImageUrl } from "@/lib/utils/file-helpers";
 import { HeroDecorativeIcon } from "@/icons";

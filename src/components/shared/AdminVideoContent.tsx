@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../ui/Button";
-import { VideoCategory } from "@prisma/client";
+import { VideoCategory } from "@/types/prisma.types";
 
 interface Video {
   id: string;
