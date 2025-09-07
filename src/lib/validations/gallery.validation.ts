@@ -80,17 +80,25 @@ export const UpdateGalleryImageSchema = z.object({
 // Gallery query parameters schema
 export const GalleryQuerySchema = z.object({
   page: z
-    .string()
-    .regex(/^\d+$/, "Page must be a positive number")
-    .transform(Number)
+    .union([
+      z
+        .string()
+        .regex(/^\d+$/, "Page must be a positive number")
+        .transform(Number),
+      z.number(),
+    ])
     .refine((val) => val > 0, "Page must be greater than 0")
-    .default("1"),
+    .default(1),
   limit: z
-    .string()
-    .regex(/^\d+$/, "Limit must be a positive number")
-    .transform(Number)
+    .union([
+      z
+        .string()
+        .regex(/^\d+$/, "Limit must be a positive number")
+        .transform(Number),
+      z.number(),
+    ])
     .refine((val) => val > 0 && val <= 50, "Limit must be between 1 and 50")
-    .default("12"),
+    .default(12),
   eventId: z
     .string()
     .regex(/^[a-zA-Z0-9_-]+$/, "Invalid event ID format")
@@ -111,6 +119,9 @@ export const GalleryImageIdSchema = z.object({
     .min(1, "Image ID is required")
     .regex(/^[a-zA-Z0-9_-]+$/, "Invalid image ID format"),
 });
+
+// Alias for backward compatibility
+export const GalleryIdSchema = GalleryImageIdSchema;
 
 // File type validation helper
 export const validateImageType = (mimeType: string): boolean => {

@@ -20,9 +20,13 @@
   "dependencies": {
     "@prisma/client": "^6.15.0",
     "bcryptjs": "^3.0.2",
+    "date-fns": "^4.1.0",
+    "googleapis": "^159.0.0",
     "lowo-portfolio": "file:",
+    "lucide-react": "^0.542.0",
     "mysql2": "^3.14.4",
     "next": "15.0.3",
+    "next-auth": "^4.24.11",
     "prisma": "^6.15.0",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",

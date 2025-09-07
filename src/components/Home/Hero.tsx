@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import React from "react";
 import Image from "next/image";
-import { LogoTertiaryIcon } from "@/icons";
+import { HeroDecorativeIcon } from "@/icons";
 
 const Hero = () => {
   return (
@@ -9,7 +9,7 @@ const Hero = () => {
       <div className="flex flex-row">
         <div className="flex flex-col px-28 py-16">
           <div>
-            <LogoTertiaryIcon />
+            <HeroDecorativeIcon />
           </div>
           <h1 className="w-[519px] text-primary text-[96px] mt-8 font-besley">
             Adelowo Ajibola

@@ -23,6 +23,10 @@ export default {
         // background: "var(--background)",
         // foreground: "var(--foreground)",
       },
+      fontFamily: {
+        besley: ["Besley", "serif"],
+        archivo: ["Archivo", "sans-serif"],
+      },
     },
   },
   plugins: [],

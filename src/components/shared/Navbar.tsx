@@ -14,6 +14,7 @@ const Navbar = () => {
     { href: "/work", label: "Work" },
     { href: "/music", label: "Music" },
     { href: "/event", label: "Event" },
+    { href: "/volunteer", label: "Volunteer" },
   ];
 
   return (

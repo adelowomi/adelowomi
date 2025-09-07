@@ -123,17 +123,25 @@ export const UpdateVideoSchema = z.object({
 // Video query parameters schema
 export const VideoQuerySchema = z.object({
   page: z
-    .string()
-    .regex(/^\d+$/, "Page must be a positive number")
-    .transform(Number)
+    .union([
+      z
+        .string()
+        .regex(/^\d+$/, "Page must be a positive number")
+        .transform(Number),
+      z.number(),
+    ])
     .refine((val) => val > 0, "Page must be greater than 0")
-    .default("1"),
+    .default(1),
   limit: z
-    .string()
-    .regex(/^\d+$/, "Limit must be a positive number")
-    .transform(Number)
+    .union([
+      z
+        .string()
+        .regex(/^\d+$/, "Limit must be a positive number")
+        .transform(Number),
+      z.number(),
+    ])
     .refine((val) => val > 0 && val <= 20, "Limit must be between 1 and 20")
-    .default("10"),
+    .default(10),
   category: VideoCategorySchema.optional(),
   eventId: z
     .string()
