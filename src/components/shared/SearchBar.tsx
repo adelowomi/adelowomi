@@ -11,7 +11,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = "Search...",
   onSearch,
   value = "",
-  className = "w-[484px]",
+  className = "w-full sm:w-[484px]",
 }) => {
   const [searchValue, setSearchValue] = useState(value);
 
@@ -46,15 +46,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
           placeholder={placeholder}
           value={searchValue}
           onChange={handleInputChange}
-          className="w-full py-3 px-4 pr-12 rounded-lg bg-black border-[0.5px] border-solid border-[#FCFCFC33] text-primary placeholder-gray-500 focus:outline-none focus:border-primary"
+          className="w-full py-2 sm:py-3 px-3 sm:px-4 pr-10 sm:pr-12 rounded-lg bg-black border-[0.5px] border-solid border-[#FCFCFC33] text-primary placeholder-gray-500 focus:outline-none focus:border-primary text-sm sm:text-base"
         />
         <button
           type="submit"
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary transition-colors"
+          className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary transition-colors"
         >
           <svg
-            width="20"
-            height="20"
+            width="16"
+            height="16"
+            className="sm:w-5 sm:h-5"
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

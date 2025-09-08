@@ -27,11 +27,13 @@ const Footer = () => {
 
     window.open(url, "_blank");
   };
+
   return (
-    <div className="flex items-center justify-between px-28 py-6">
-      <div className="flex justify-between gap-4">
+    <div className="flex flex-col lg:flex-row items-center justify-between px-6 sm:px-12 lg:px-28 py-6 gap-4 lg:gap-0">
+      {/* Social Media Icons */}
+      <div className="flex justify-center gap-4 order-2 lg:order-1">
         <span
-          className="rounded-full bg-white flex justify-center items-center w-8 h-8 p-2 cursor-pointer"
+          className="rounded-full bg-white flex justify-center items-center w-8 h-8 p-2 cursor-pointer hover:scale-110 transition-transform duration-200"
           onClick={() => handleRedirect("linkedin")}
         >
           <svg
@@ -48,7 +50,7 @@ const Footer = () => {
           </svg>
         </span>
         <span
-          className="rounded-full bg-white flex justify-center items-center w-8 h-8 p-2 cursor-pointer"
+          className="rounded-full bg-white flex justify-center items-center w-8 h-8 p-2 cursor-pointer hover:scale-110 transition-transform duration-200"
           onClick={() => handleRedirect("twitter")}
         >
           <svg
@@ -65,7 +67,7 @@ const Footer = () => {
           </svg>
         </span>
         <span
-          className="rounded-full bg-white flex justify-center items-center w-8 h-8 p-2 cursor-pointer"
+          className="rounded-full bg-white flex justify-center items-center w-8 h-8 p-2 cursor-pointer hover:scale-110 transition-transform duration-200"
           onClick={() => handleRedirect("instagram")}
         >
           <svg
@@ -82,7 +84,7 @@ const Footer = () => {
           </svg>
         </span>
         <span
-          className="rounded-full bg-white flex justify-center items-center w-8 h-8 p-2 cursor-pointer"
+          className="rounded-full bg-white flex justify-center items-center w-8 h-8 p-2 cursor-pointer hover:scale-110 transition-transform duration-200"
           onClick={() => handleRedirect("facebook")}
         >
           <svg
@@ -99,10 +101,14 @@ const Footer = () => {
           </svg>
         </span>
       </div>
-      <div>
+
+      {/* Logo */}
+      <div className="order-1 lg:order-2">
         <LogoSecondaryIcon />
       </div>
-      <div className="text-lg text-primary font-">
+
+      {/* Copyright */}
+      <div className="text-sm sm:text-base lg:text-lg text-primary text-center lg:text-right order-3">
         © 2024 Adelowo Ajibola. All right reserved
       </div>
     </div>

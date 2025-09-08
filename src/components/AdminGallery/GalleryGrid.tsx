@@ -97,7 +97,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({ images, onImageDelete }) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {images.map((image) => (
           <div
             key={image.id}
@@ -148,14 +148,14 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({ images, onImageDelete }) => {
             </div>
 
             {/* Image Info */}
-            <div className="p-4">
-              <h3 className="text-primary font-archivo font-medium text-sm mb-2 truncate">
+            <div className="p-3 sm:p-4">
+              <h3 className="text-primary font-archivo font-medium text-xs sm:text-sm mb-2 truncate">
                 {image.title}
               </h3>
               <div className="flex flex-col gap-1 text-xs text-primary/60 font-archivo">
                 <span>Uploaded: {formatDate(image.createdAt)}</span>
                 {image.event && (
-                  <span className="text-primary/80">
+                  <span className="text-primary/80 truncate">
                     Event: {image.event.title}
                   </span>
                 )}

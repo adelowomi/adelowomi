@@ -27,9 +27,9 @@ const Button: React.FC<CustomButtonProps> = ({
 }) => {
   // Size classes
   const sizeClasses = {
-    sm: "px-4 py-2 text-sm",
-    md: "px-8 py-3 text-[16px]",
-    lg: "px-10 py-4 text-lg",
+    sm: "px-3 sm:px-4 py-2 text-sm",
+    md: "px-6 sm:px-8 py-3 text-sm sm:text-[16px]",
+    lg: "px-8 sm:px-10 py-4 text-base sm:text-lg",
   };
 
   // Variant classes
@@ -41,7 +41,8 @@ const Button: React.FC<CustomButtonProps> = ({
   };
 
   // Use custom styles if provided, otherwise use defaults
-  const finalWidth = width || (size === "sm" ? "w-auto" : "w-[242px]");
+  const finalWidth =
+    width || (size === "sm" ? "w-auto" : "w-full sm:w-[242px]");
   const finalPadding = padding || sizeClasses[size];
   const finalTextStyle =
     textStyle || `font-normal font-archivo ${sizeClasses[size]}`;

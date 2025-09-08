@@ -146,10 +146,10 @@ const GalleryManagement = () => {
       </div>
 
       {/* Actions and Filters */}
-      <div className="flex flex-col gap-6">
-        <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-4 sm:gap-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <div className="flex items-center gap-4">
-            <span className="text-primary font-archivo">
+            <span className="text-primary font-archivo text-sm sm:text-base">
               {pagination.total} images total
             </span>
           </div>
@@ -157,8 +157,8 @@ const GalleryManagement = () => {
             text="Upload Image"
             svg={<PlusIcon />}
             onClick={() => setShowUploadModal(true)}
-            textStyle="text-[16px] font-normal text-primary font-archivo"
-            padding="px-6 py-3"
+            textStyle="text-sm sm:text-[16px] font-normal text-primary font-archivo"
+            padding="px-4 sm:px-6 py-2 sm:py-3"
           />
         </div>
 
@@ -181,15 +181,15 @@ const GalleryManagement = () => {
           <LoadingSpinner />
         </div>
       ) : images.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="text-primary/60 font-archivo text-lg mb-4">
+        <div className="flex flex-col items-center justify-center py-12 sm:py-20 text-center">
+          <div className="text-primary/60 font-archivo text-base sm:text-lg mb-4">
             No images found
           </div>
           <Button
             text="Upload First Image"
             svg={<PlusIcon />}
             onClick={() => setShowUploadModal(true)}
-            textStyle="text-[14px] font-normal text-primary font-archivo"
+            textStyle="text-sm font-normal text-primary font-archivo"
             padding="px-4 py-2"
           />
         </div>
@@ -199,23 +199,23 @@ const GalleryManagement = () => {
 
           {/* Pagination */}
           {pagination.totalPages > 1 && (
-            <div className="flex justify-center items-center gap-4 mt-8">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 mt-6 sm:mt-8">
               <Button
                 text="Previous"
                 onClick={() => handlePageChange(pagination.page - 1)}
                 disabled={pagination.page === 1}
-                textStyle="text-[14px] font-normal text-primary font-archivo"
-                padding="px-4 py-2"
+                textStyle="text-sm font-normal text-primary font-archivo"
+                padding="px-3 sm:px-4 py-2"
               />
-              <span className="text-primary font-archivo">
+              <span className="text-primary font-archivo text-sm sm:text-base">
                 Page {pagination.page} of {pagination.totalPages}
               </span>
               <Button
                 text="Next"
                 onClick={() => handlePageChange(pagination.page + 1)}
                 disabled={pagination.page === pagination.totalPages}
-                textStyle="text-[14px] font-normal text-primary font-archivo"
-                padding="px-4 py-2"
+                textStyle="text-sm font-normal text-primary font-archivo"
+                padding="px-3 sm:px-4 py-2"
               />
             </div>
           )}

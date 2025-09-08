@@ -52,9 +52,9 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-[bg-surface] border-[#8F630233] border-[0.5px] border-solid rounded-lg flex flex-col gap-20 pt-20 px-32 pb-32 mx-auto my-0 w-[886px]">
+    <div className="bg-[bg-surface] border-[#8F630233] border-[0.5px] border-solid rounded-lg flex flex-col gap-8 md:gap-12 lg:gap-20 p-6 md:p-12 lg:px-32 lg:pt-20 lg:pb-32 mx-auto w-full max-w-md md:max-w-lg lg:max-w-[886px]">
       <div className="flex flex-col items-center">
-        <h2 className="text-primary font-besley text-[40px] font-semibold text-center">
+        <h2 className="text-primary font-besley text-2xl md:text-3xl lg:text-4xl font-semibold text-center">
           LOG IN
         </h2>
         <hr className="horizontal-line" />
@@ -68,7 +68,7 @@ const Login = () => {
           )}
 
           <div className="flex flex-col mb-4">
-            <label className="text-[16px] font-medium font-archivo text-primary">
+            <label className="text-sm md:text-base font-medium font-archivo text-primary">
               Email
             </label>
             <input
@@ -77,13 +77,13 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={isLoading}
-              className="rounded-lg bg-[bg-surface] mt-2 py-5 px-4 flex items-center w-full border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-gray-900 placeholder:text-[#FCFCFC80] text-[16px] font-normal disabled:opacity-50"
+              className="rounded-lg bg-[bg-surface] mt-2 py-3 md:py-5 px-3 md:px-4 flex items-center w-full border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-gray-900 placeholder:text-[#FCFCFC80] text-sm md:text-[16px] font-normal disabled:opacity-50"
               required
             />
           </div>
 
-          <div className="flex flex-col mb-8 relative">
-            <label className="text-[16px] font-medium font-archivo text-primary">
+          <div className="flex flex-col mb-6 md:mb-8 relative">
+            <label className="text-sm md:text-base font-medium font-archivo text-primary">
               Password
             </label>
             <input
@@ -92,23 +92,23 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isLoading}
-              className="rounded-lg bg-[bg-surface] mt-2 py-5 px-4 w-full border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-gray-900 placeholder:text-[#FCFCFC80] text-[16px] font-normal pr-10 disabled:opacity-50"
+              className="rounded-lg bg-[bg-surface] mt-2 py-3 md:py-5 px-3 md:px-4 w-full border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-gray-900 placeholder:text-[#FCFCFC80] text-sm md:text-[16px] font-normal pr-10 disabled:opacity-50"
               required
             />
             <button
               type="button"
               onClick={toggleVisibility}
               disabled={isLoading}
-              className="absolute top-16 right-3 text-primary focus:outline-none disabled:opacity-50"
+              className="absolute top-10 md:top-16 right-3 text-primary focus:outline-none disabled:opacity-50"
             >
               {isVisible ? <PasswordViewIcon /> : <PasswordViewIcon />}
             </button>
           </div>
 
-          <h2 className="text-right text-primary text-[16px] font-normal font-archivo">
+          <h2 className="text-right text-primary text-sm md:text-[16px] font-normal font-archivo">
             Forgot password?
           </h2>
-          <div className="mt-8">
+          <div className="mt-6 md:mt-8">
             <Button
               text={isLoading ? "Logging in..." : "Log In"}
               svg={<ArrowIcon />}

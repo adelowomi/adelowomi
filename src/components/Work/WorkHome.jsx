@@ -19,14 +19,14 @@ const WorkHome = () => {
       id: 1,
       title: "START-UP FOUNDER",
       description:
-        "With a relentless entrepreneurial spirit, I’ve ventured into creating start-ups that combine innovation and practicality. By embracing the latest industry trends and adopting best practices, I have built a repertoire of dynamic applications that elevate user experiences and drive business growth.",
+        "With a relentless entrepreneurial spirit, I've ventured into creating start-ups that combine innovation and practicality. By embracing the latest industry trends and adopting best practices, I have built a repertoire of dynamic applications that elevate user experiences and drive business growth.",
       icon: <Icon2 />,
     },
     {
       id: 2,
       title: "CONTENT CREATOR",
       description:
-        "Through engaging storytelling, captivating visuals, and a deep understanding of the audience’s needs, I have built a repertoire of dynamic applications that elevate user experiences and drive business growth.",
+        "Through engaging storytelling, captivating visuals, and a deep understanding of the audience's needs, I have built a repertoire of dynamic applications that elevate user experiences and drive business growth.",
       icon: <Icon3 />,
     },
   ];
@@ -40,28 +40,30 @@ const WorkHome = () => {
   }, [icons.length]);
 
   return (
-    <div className="flex flex-row px-28 py-24 items-center justify-between">
-      <div className="flex flex-col gap-20">
-        <div className="flex justify-center items-center w-20 h-20 bg-transparent">
+    <div className="flex flex-col lg:flex-row px-6 sm:px-12 lg:px-28 py-12 lg:py-24 items-center justify-between gap-10 lg:gap-20">
+      <div className="flex flex-col gap-10 lg:gap-20 order-2 lg:order-1">
+        <div className="flex justify-center lg:justify-start items-center w-16 h-16 lg:w-20 lg:h-20 bg-transparent">
           <HeroDecorativeIcon />
         </div>
 
         <div
-          className={`flex flex-col gap-6 w-[687px] transition-opacity duration-500 ${
+          className={`flex flex-col gap-4 lg:gap-6 w-full max-w-[687px] transition-opacity duration-500 text-center lg:text-left ${
             activeIcon !== null ? "opacity-100" : "opacity-0"
           }`}
         >
-          <h1 className="text-primary text-[64px] font-semibold font-besley">
+          <h1 className="text-primary text-2xl sm:text-3xl lg:text-[64px] font-semibold font-besley leading-tight">
             {icons[activeIcon].title}
           </h1>
-          <p className="text-primary text-[20px] font-normal font-archivo">
+          <p className="text-primary text-base sm:text-lg lg:text-[20px] font-normal font-archivo">
             {icons[activeIcon].description}
           </p>
-          <Button text="Download CV" svg={<DownloadIcon />} />
+          <div className="w-full sm:w-auto">
+            <Button text="Download CV" svg={<DownloadIcon />} />
+          </div>
         </div>
       </div>
 
-      <div className="relative flex justify-center items-center w-40 h-40">
+      <div className="relative flex justify-center items-center w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 order-1 lg:order-2">
         {icons.map((icon, index) => (
           <div
             key={icon.id}

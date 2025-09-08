@@ -48,12 +48,12 @@ const AdminVideoManager = () => {
   return (
     <div className="flex flex-col gap-8">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-primary font-besley">
+          <h1 className="text-2xl sm:text-3xl font-bold text-primary font-besley">
             Video Management
           </h1>
-          <p className="text-gray-400 mt-2">
+          <p className="text-gray-400 mt-2 text-sm sm:text-base">
             Manage your video content and uploads
           </p>
         </div>
@@ -78,7 +78,7 @@ const AdminVideoManager = () => {
       )}
 
       {/* Video Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {loading ? (
           Array.from({ length: 8 }).map((_, index) => (
             <div
@@ -94,9 +94,11 @@ const AdminVideoManager = () => {
             </div>
           ))
         ) : videos.length === 0 ? (
-          <div className="col-span-full text-center py-12">
-            <div className="text-gray-400 text-lg mb-4">No videos found</div>
-            <p className="text-gray-500">
+          <div className="col-span-full text-center py-8 sm:py-12">
+            <div className="text-gray-400 text-base sm:text-lg mb-4">
+              No videos found
+            </div>
+            <p className="text-gray-500 text-sm sm:text-base">
               Upload your first video to get started
             </p>
           </div>
@@ -123,9 +125,9 @@ const AdminVideoManager = () => {
               </div>
 
               {/* Content */}
-              <div className="p-4 space-y-3">
+              <div className="p-3 sm:p-4 space-y-2 sm:space-y-3">
                 <div>
-                  <h3 className="text-primary font-medium text-sm line-clamp-2 leading-tight">
+                  <h3 className="text-primary font-medium text-xs sm:text-sm line-clamp-2 leading-tight">
                     {video.title}
                   </h3>
                   {video.description && (
@@ -135,20 +137,20 @@ const AdminVideoManager = () => {
                   )}
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <span className="px-2 py-1 rounded text-xs border bg-primary/20 text-primary border-primary/30">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="px-2 py-1 rounded text-xs border bg-primary/20 text-primary border-primary/30 truncate">
                     {video.category}
                   </span>
                   <button
                     onClick={() => window.open(video.driveUrl, "_blank")}
-                    className="px-3 py-1 bg-primary text-black rounded text-sm hover:bg-primary/90 transition-colors"
+                    className="px-2 sm:px-3 py-1 bg-primary text-black rounded text-xs sm:text-sm hover:bg-primary/90 transition-colors flex-shrink-0"
                   >
                     View
                   </button>
                 </div>
 
                 {video.event && (
-                  <div className="text-xs text-gray-400 bg-gray-800/50 rounded px-2 py-1">
+                  <div className="text-xs text-gray-400 bg-gray-800/50 rounded px-2 py-1 truncate">
                     Event: {video.event.title}
                   </div>
                 )}

@@ -179,19 +179,22 @@ const AdminUsersView = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Admin Users</h1>
-          <p className="text-gray-400 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-white">
+            Admin Users
+          </h1>
+          <p className="text-gray-400 mt-1 text-sm sm:text-base">
             Manage admin users and permissions
           </p>
         </div>
         <button
           onClick={handleAddUser}
-          className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+          className="bg-purple-600 hover:bg-purple-700 text-white px-3 sm:px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm sm:text-base self-start sm:self-auto"
         >
           <PlusIcon />
-          Add Admin
+          <span className="hidden sm:inline">Add Admin</span>
+          <span className="sm:hidden">Add</span>
         </button>
       </div>
 
@@ -205,22 +208,22 @@ const AdminUsersView = () => {
       {/* Users Table */}
       <div className="bg-gray-800/50 rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[600px]">
             <thead className="bg-gray-700/50">
               <tr>
-                <th className="text-left py-4 px-6 text-gray-300 font-medium">
+                <th className="text-left py-3 sm:py-4 px-3 sm:px-6 text-gray-300 font-medium text-sm sm:text-base">
                   Admin
                 </th>
-                <th className="text-left py-4 px-6 text-gray-300 font-medium">
+                <th className="text-left py-3 sm:py-4 px-3 sm:px-6 text-gray-300 font-medium text-sm sm:text-base">
                   Email
                 </th>
-                <th className="text-left py-4 px-6 text-gray-300 font-medium">
+                <th className="text-left py-3 sm:py-4 px-3 sm:px-6 text-gray-300 font-medium text-sm sm:text-base">
                   Role
                 </th>
-                <th className="text-left py-4 px-6 text-gray-300 font-medium">
+                <th className="text-left py-3 sm:py-4 px-3 sm:px-6 text-gray-300 font-medium text-sm sm:text-base hidden sm:table-cell">
                   Created
                 </th>
-                <th className="text-right py-4 px-6 text-gray-300 font-medium">
+                <th className="text-right py-3 sm:py-4 px-3 sm:px-6 text-gray-300 font-medium text-sm sm:text-base">
                   Actions
                 </th>
               </tr>
@@ -231,39 +234,41 @@ const AdminUsersView = () => {
                   key={user.id}
                   className="hover:bg-gray-700/30 transition-colors"
                 >
-                  <td className="py-4 px-6">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-purple-600/20 rounded-full flex items-center justify-center text-purple-400">
+                  <td className="py-3 sm:py-4 px-3 sm:px-6">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-600/20 rounded-full flex items-center justify-center text-purple-400">
                         <UserIcon />
                       </div>
                       <div>
-                        <div className="text-white font-medium">
+                        <div className="text-white font-medium text-sm sm:text-base">
                           {user.name}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="py-4 px-6 text-gray-300">{user.email}</td>
-                  <td className="py-4 px-6">
-                    <span className="bg-purple-600/20 text-purple-400 px-2 py-1 rounded-full text-sm">
+                  <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-300 text-sm sm:text-base truncate max-w-[150px] sm:max-w-none">
+                    {user.email}
+                  </td>
+                  <td className="py-3 sm:py-4 px-3 sm:px-6">
+                    <span className="bg-purple-600/20 text-purple-400 px-2 py-1 rounded-full text-xs sm:text-sm">
                       {user.role}
                     </span>
                   </td>
-                  <td className="py-4 px-6 text-gray-400">
+                  <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-400 text-sm hidden sm:table-cell">
                     {formatDate(user.createdAt)}
                   </td>
-                  <td className="py-4 px-6">
-                    <div className="flex items-center justify-end gap-2">
+                  <td className="py-3 sm:py-4 px-3 sm:px-6">
+                    <div className="flex items-center justify-end gap-1 sm:gap-2">
                       <button
                         onClick={() => handleEditUser(user)}
-                        className="p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-400/10 rounded-lg transition-colors"
+                        className="p-1.5 sm:p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-400/10 rounded-lg transition-colors"
                         title="Edit admin"
                       >
                         <EditIcon />
                       </button>
                       <button
                         onClick={() => handleDeleteUser(user)}
-                        className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
+                        className="p-1.5 sm:p-2 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
                         title="Delete admin"
                       >
                         <TrashIcon />
@@ -277,11 +282,12 @@ const AdminUsersView = () => {
         </div>
 
         {users.length === 0 && !loading && (
-          <div className="text-center py-12">
+          <div className="text-center py-8 sm:py-12">
             <div className="text-gray-500 mx-auto mb-4">
               <svg
-                width="48"
-                height="48"
+                width="32"
+                height="32"
+                className="sm:w-12 sm:h-12"
                 viewBox="0 0 48 48"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -295,7 +301,9 @@ const AdminUsersView = () => {
                 />
               </svg>
             </div>
-            <p className="text-gray-400">No admin users found</p>
+            <p className="text-gray-400 text-sm sm:text-base">
+              No admin users found
+            </p>
           </div>
         )}
       </div>

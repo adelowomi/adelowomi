@@ -123,8 +123,8 @@ const EventCard: React.FC<EventCardProps> = ({ event, onEdit, onView }) => {
     }
   };
   return (
-    <div className="flex flex-col gap-6 rounded-lg border-[0.5px] border-solid border-[#fcfcfc33] w-full max-w-[356px]">
-      <div className="w-full h-[218px] rounded-lg bg-[#d9d9d9] flex justify-center items-center overflow-hidden">
+    <div className="flex flex-col gap-4 sm:gap-6 rounded-lg border-[0.5px] border-solid border-[#fcfcfc33] w-full max-w-[356px]">
+      <div className="w-full h-[180px] sm:h-[218px] rounded-lg bg-[#d9d9d9] flex justify-center items-center overflow-hidden">
         {eventData.flyerUrl ? (
           <img
             src={getGoogleDriveImageUrl(eventData.flyerUrl)}
@@ -132,12 +132,12 @@ const EventCard: React.FC<EventCardProps> = ({ event, onEdit, onView }) => {
             className="w-full h-full object-cover"
           />
         ) : (
-          <h2 className="text-black text-[24px] font-medium font-archivo text-center px-4">
+          <h2 className="text-black text-lg sm:text-[24px] font-medium font-archivo text-center px-3 sm:px-4">
             {eventData.title}
           </h2>
         )}
       </div>
-      <div className="px-5 pt-2 pb-4">
+      <div className="px-3 sm:px-5 pt-2 pb-3 sm:pb-4">
         <div className="flex justify-between items-center relative">
           <div
             className={`px-3 py-1 rounded text-white text-[12px] font-medium ${getStatusColor(
@@ -271,26 +271,26 @@ const EventCard: React.FC<EventCardProps> = ({ event, onEdit, onView }) => {
             </div>
           )}
         </div>
-        <div className="flex flex-col gap-2 my-5">
-          <span className="font-besley text-[20px] font-semibold text-primary">
+        <div className="flex flex-col gap-1.5 sm:gap-2 my-3 sm:my-5">
+          <span className="font-besley text-lg sm:text-[20px] font-semibold text-primary">
             {eventData.title}
           </span>
-          <span className="font-archivo text-[16px] font-light text-primary">
+          <span className="font-archivo text-sm sm:text-[16px] font-light text-primary">
             Date: {new Date(eventData.date).toLocaleDateString()}
           </span>
-          <span className="font-archivo text-[16px] font-light text-primary">
+          <span className="font-archivo text-sm sm:text-[16px] font-light text-primary">
             Time: {eventData.time || "TBD"}
           </span>
-          <span className="font-archivo text-[16px] font-light text-primary">
+          <span className="font-archivo text-sm sm:text-[16px] font-light text-primary">
             Venue: {eventData.venue || "TBD"}
           </span>
         </div>
-        <div className="flex flex-col gap-1 mb-4">
+        <div className="flex flex-col gap-1 mb-3 sm:mb-4">
           <div className="flex flex-row justify-between">
-            <span className="text-primary font-archivo text-[12px] font-light">
+            <span className="text-primary font-archivo text-xs font-light">
               {ticketsLeft} tickets left
             </span>
-            <span className="text-primary font-archivo text-[12px] font-light">
+            <span className="text-primary font-archivo text-xs font-light">
               {daysLeft} days left
             </span>
           </div>

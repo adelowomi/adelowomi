@@ -18,18 +18,20 @@ const VolunteersPage = () => {
 
   return (
     <AdminLayout>
-      <div className="flex flex-row min-h-screen">
-        <div className="w-[280px] lg:w-[18%] border-r border-[#FCFCFC33] min-h-screen">
+      <div className="flex flex-col lg:flex-row min-h-screen">
+        <div className="w-full lg:w-[280px] xl:w-[18%] border-b lg:border-b-0 lg:border-r border-[#FCFCFC33] lg:min-h-screen">
           <Sidebar />
         </div>
-        <div className="flex-1 m-6 lg:m-10 flex flex-col gap-8">
+        <div className="flex-1 m-4 sm:m-6 lg:m-10 flex flex-col gap-6 lg:gap-8">
           <AdminNavbar />
           <div className="flex flex-col gap-6">
-            <div className="flex justify-between items-center">
-              <h1 className="text-2xl font-bold text-white">Volunteer Forms</h1>
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+              <h1 className="text-xl sm:text-2xl font-bold text-white">
+                Volunteer Forms
+              </h1>
               <button
                 onClick={() => setShowCreateModal(true)}
-                className="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary/90 transition-colors"
+                className="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary/90 transition-colors text-sm sm:text-base"
               >
                 Create Volunteer Form
               </button>

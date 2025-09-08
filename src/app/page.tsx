@@ -8,7 +8,7 @@ import Hero from "@/components/Home/Hero";
 
 export default function Home() {
   return (
-    <div className="max-w-[1440px] my-0 mx-auto">
+    <div className="max-w-[1440px] my-0 mx-auto overflow-x-hidden">
       <Navbar />
       <Hero />
       <About />

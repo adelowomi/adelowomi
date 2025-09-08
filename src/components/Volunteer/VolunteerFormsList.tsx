@@ -74,11 +74,11 @@ const VolunteerFormsList: React.FC<VolunteerFormsListProps> = ({
 
   if (volunteerForms.length === 0) {
     return (
-      <div className="text-center py-12">
-        <div className="text-gray-400 text-lg mb-4">
+      <div className="text-center py-8 sm:py-12">
+        <div className="text-gray-400 text-base sm:text-lg mb-4">
           No volunteer forms created yet
         </div>
-        <div className="text-gray-500">
+        <div className="text-gray-500 text-sm sm:text-base">
           Create your first volunteer form to get started
         </div>
       </div>
@@ -90,24 +90,26 @@ const VolunteerFormsList: React.FC<VolunteerFormsListProps> = ({
       {volunteerForms.map((form) => (
         <div
           key={form.id}
-          className="bg-white/5 border border-white/10 rounded-lg p-6 hover:bg-white/10 transition-colors"
+          className="bg-white/5 border border-white/10 rounded-lg p-4 sm:p-6 hover:bg-white/10 transition-colors"
         >
-          <div className="flex justify-between items-start mb-4">
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
             <div className="flex-1">
-              <h3 className="text-xl font-semibold text-white mb-2">
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">
                 {form.title}
               </h3>
-              <p className="text-gray-300 mb-2">Event: {form.event.title}</p>
+              <p className="text-gray-300 mb-2 text-sm sm:text-base">
+                Event: {form.event.title}
+              </p>
               {form.description && (
                 <p className="text-gray-400 text-sm mb-3">{form.description}</p>
               )}
-              <div className="flex items-center gap-4 text-sm text-gray-400">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-400">
                 <span>Submissions: {form._count.submissions}</span>
                 <span>
                   Created: {new Date(form.createdAt).toLocaleDateString()}
                 </span>
                 <span
-                  className={`px-2 py-1 rounded-full text-xs ${
+                  className={`px-2 py-1 rounded-full text-xs self-start ${
                     form.isActive
                       ? "bg-green-500/20 text-green-400"
                       : "bg-red-500/20 text-red-400"
@@ -117,10 +119,10 @@ const VolunteerFormsList: React.FC<VolunteerFormsListProps> = ({
                 </span>
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <button
                 onClick={() => toggleFormStatus(form.id, form.isActive)}
-                className={`px-3 py-1 rounded text-sm transition-colors ${
+                className={`px-3 py-1 rounded text-xs sm:text-sm transition-colors ${
                   form.isActive
                     ? "bg-red-500/20 text-red-400 hover:bg-red-500/30"
                     : "bg-green-500/20 text-green-400 hover:bg-green-500/30"
@@ -134,13 +136,13 @@ const VolunteerFormsList: React.FC<VolunteerFormsListProps> = ({
                   navigator.clipboard.writeText(url);
                   alert("Volunteer form URL copied to clipboard!");
                 }}
-                className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-sm hover:bg-blue-500/30 transition-colors mr-2"
+                className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-xs sm:text-sm hover:bg-blue-500/30 transition-colors"
               >
                 Copy Link
               </button>
               <Link
                 href={`/admin/volunteers/${form.id}/submissions`}
-                className="bg-secondary/20 text-secondary px-3 py-1 rounded text-sm hover:bg-secondary/30 transition-colors"
+                className="bg-secondary/20 text-secondary px-3 py-1 rounded text-xs sm:text-sm hover:bg-secondary/30 transition-colors text-center"
               >
                 View Submissions
               </Link>

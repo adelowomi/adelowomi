@@ -68,7 +68,7 @@ const GalleryFilters: React.FC<GalleryFiltersProps> = ({
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 p-6 border-[0.5px] border-solid border-[#FCFCFC33] rounded-lg bg-black/20">
+    <div className="flex flex-col sm:flex-row lg:flex-row gap-3 sm:gap-4 p-4 sm:p-6 border-[0.5px] border-solid border-[#FCFCFC33] rounded-lg bg-black/20">
       {/* Search */}
       <div className="flex-1">
         <label className="block text-sm font-medium font-archivo text-primary mb-2">
@@ -79,7 +79,7 @@ const GalleryFilters: React.FC<GalleryFiltersProps> = ({
           placeholder="Search by title..."
           value={filters.search}
           onChange={handleSearchChange}
-          className="w-full rounded-lg bg-black py-3 px-4 border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-primary placeholder-primary/50 focus:outline-none focus:border-primary/50"
+          className="w-full rounded-lg bg-black py-2 sm:py-3 px-3 sm:px-4 border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-primary placeholder-primary/50 focus:outline-none focus:border-primary/50 text-sm sm:text-base"
         />
       </div>
 
@@ -92,7 +92,7 @@ const GalleryFilters: React.FC<GalleryFiltersProps> = ({
           value={filters.eventId}
           onChange={handleEventChange}
           disabled={loadingEvents}
-          className="w-full rounded-lg bg-black py-3 px-4 border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-primary focus:outline-none focus:border-primary/50"
+          className="w-full rounded-lg bg-black py-2 sm:py-3 px-3 sm:px-4 border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-primary focus:outline-none focus:border-primary/50 text-sm sm:text-base"
         >
           <option value="">All Events</option>
           {events.map((event) => (
@@ -111,7 +111,7 @@ const GalleryFilters: React.FC<GalleryFiltersProps> = ({
         <select
           value={`${filters.sortBy}-${filters.sortOrder}`}
           onChange={handleSortChange}
-          className="w-full rounded-lg bg-black py-3 px-4 border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-primary focus:outline-none focus:border-primary/50"
+          className="w-full rounded-lg bg-black py-2 sm:py-3 px-3 sm:px-4 border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-primary focus:outline-none focus:border-primary/50 text-sm sm:text-base"
         >
           <option value="createdAt-desc">Newest First</option>
           <option value="createdAt-asc">Oldest First</option>
@@ -124,7 +124,7 @@ const GalleryFilters: React.FC<GalleryFiltersProps> = ({
       <div className="flex items-end">
         <button
           onClick={clearFilters}
-          className="px-4 py-3 text-sm font-archivo text-primary/70 hover:text-primary border border-[#FCFCFC33] hover:border-primary/50 rounded-lg transition-colors"
+          className="px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-archivo text-primary/70 hover:text-primary border border-[#FCFCFC33] hover:border-primary/50 rounded-lg transition-colors whitespace-nowrap"
         >
           Clear Filters
         </button>

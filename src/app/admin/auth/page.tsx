@@ -34,13 +34,13 @@ const page = () => {
   }
 
   return (
-    <div className="max-w-[1440px] flex flex-col gap-16 my-10 mx-auto">
-      <div>
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8">
+      <div className="mb-8">
         <LogoIcon />
       </div>
       <Login />
       {process.env.NODE_ENV === "development" && (
-        <div className="mt-8">
+        <div className="mt-8 w-full max-w-md">
           <AuthDebug />
         </div>
       )}

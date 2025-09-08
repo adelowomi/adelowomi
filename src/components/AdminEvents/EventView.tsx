@@ -105,7 +105,7 @@ const EventView: React.FC<EventViewProps> = ({
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
         {filteredEvents.map((event) => (
           <EventCard
             key={event.id}
@@ -118,8 +118,8 @@ const EventView: React.FC<EventViewProps> = ({
 
       {/* Edit Modal */}
       {editingEvent && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-surface rounded-lg w-[886px] py-4 px-16 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-surface rounded-lg w-full max-w-[886px] py-4 px-4 sm:px-8 lg:px-16 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between my-2">
               <div></div>
               <div onClick={handleCloseEdit} className="cursor-pointer">
@@ -137,17 +137,17 @@ const EventView: React.FC<EventViewProps> = ({
 
       {/* View Modal */}
       {viewingEvent && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-surface rounded-lg w-[886px] py-4 px-16 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-surface rounded-lg w-full max-w-[886px] py-4 px-4 sm:px-8 lg:px-16 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between my-2">
               <div></div>
               <div onClick={handleCloseView} className="cursor-pointer">
                 <CloseIcon />
               </div>
             </div>
-            <div className="flex flex-col gap-6 text-primary">
+            <div className="flex flex-col gap-4 sm:gap-6 text-primary">
               <div className="flex flex-col gap-2 items-center">
-                <h2 className="text-primary text-[32px] font-semibold font-besley">
+                <h2 className="text-primary text-xl sm:text-2xl lg:text-[32px] font-semibold font-besley text-center">
                   {viewingEvent.title}
                 </h2>
                 <hr className="horizontal-line" />
@@ -158,58 +158,68 @@ const EventView: React.FC<EventViewProps> = ({
                   <img
                     src={getGoogleDriveImageUrl(viewingEvent.flyerUrl)}
                     alt={viewingEvent.title}
-                    className="max-w-full max-h-64 object-contain rounded-lg"
+                    className="max-w-full max-h-48 sm:max-h-64 object-contain rounded-lg"
                   />
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Event Details</h3>
-                  <p>
-                    <strong>Date:</strong>{" "}
-                    {new Date(viewingEvent.date).toLocaleDateString()}
-                  </p>
-                  <p>
-                    <strong>Time:</strong> {viewingEvent.time}
-                  </p>
-                  <p>
-                    <strong>Venue:</strong> {viewingEvent.venue}
-                  </p>
-                  <p>
-                    <strong>Capacity:</strong> {viewingEvent.capacity}
-                  </p>
-                  <p>
-                    <strong>Status:</strong> {viewingEvent.status}
-                  </p>
+                  <h3 className="text-base sm:text-lg font-semibold mb-2">
+                    Event Details
+                  </h3>
+                  <div className="space-y-1 text-sm sm:text-base">
+                    <p>
+                      <strong>Date:</strong>{" "}
+                      {new Date(viewingEvent.date).toLocaleDateString()}
+                    </p>
+                    <p>
+                      <strong>Time:</strong> {viewingEvent.time}
+                    </p>
+                    <p>
+                      <strong>Venue:</strong> {viewingEvent.venue}
+                    </p>
+                    <p>
+                      <strong>Capacity:</strong> {viewingEvent.capacity}
+                    </p>
+                    <p>
+                      <strong>Status:</strong> {viewingEvent.status}
+                    </p>
+                  </div>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2">
                     Registration Stats
                   </h3>
-                  <p>
-                    <strong>Registered:</strong>{" "}
-                    {viewingEvent.registrationCount || 0}
-                  </p>
-                  <p>
-                    <strong>Available:</strong>{" "}
-                    {viewingEvent.availableSpots || viewingEvent.capacity}
-                  </p>
-                  <p>
-                    <strong>Created:</strong>{" "}
-                    {new Date(viewingEvent.createdAt).toLocaleDateString()}
-                  </p>
-                  <p>
-                    <strong>Updated:</strong>{" "}
-                    {new Date(viewingEvent.updatedAt).toLocaleDateString()}
-                  </p>
+                  <div className="space-y-1 text-sm sm:text-base">
+                    <p>
+                      <strong>Registered:</strong>{" "}
+                      {viewingEvent.registrationCount || 0}
+                    </p>
+                    <p>
+                      <strong>Available:</strong>{" "}
+                      {viewingEvent.availableSpots || viewingEvent.capacity}
+                    </p>
+                    <p>
+                      <strong>Created:</strong>{" "}
+                      {new Date(viewingEvent.createdAt).toLocaleDateString()}
+                    </p>
+                    <p>
+                      <strong>Updated:</strong>{" "}
+                      {new Date(viewingEvent.updatedAt).toLocaleDateString()}
+                    </p>
+                  </div>
                 </div>
               </div>
 
               {viewingEvent.description && (
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Description</h3>
-                  <p className="text-gray-300">{viewingEvent.description}</p>
+                  <h3 className="text-base sm:text-lg font-semibold mb-2">
+                    Description
+                  </h3>
+                  <p className="text-gray-300 text-sm sm:text-base">
+                    {viewingEvent.description}
+                  </p>
                 </div>
               )}
             </div>

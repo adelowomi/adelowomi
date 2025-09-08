@@ -47,23 +47,23 @@ const EventsList = () => {
 
   if (loading && (!events || events.length === 0)) {
     return (
-      <div className="px-28 py-24">
+      <div className="px-6 sm:px-12 lg:px-28 py-12 lg:py-24">
         <div className="flex justify-center items-center h-64">
-          <p className="text-primary text-xl">Loading events...</p>
+          <p className="text-primary text-lg lg:text-xl">Loading events...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="px-28 py-24">
-      <div className="flex flex-col gap-12">
+    <div className="px-6 sm:px-12 lg:px-28 py-12 lg:py-24">
+      <div className="flex flex-col gap-8 lg:gap-12">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-primary font-semibold text-[48px] uppercase font-besley mb-4">
+          <h1 className="text-primary font-semibold text-3xl sm:text-4xl lg:text-[48px] uppercase font-besley mb-4">
             Upcoming Events
           </h1>
-          <p className="text-primary font-archivo text-lg max-w-2xl mx-auto">
+          <p className="text-primary font-archivo text-base lg:text-lg max-w-2xl mx-auto">
             Join us for exciting events designed to help you grow in your tech
             career
           </p>
@@ -71,15 +71,18 @@ const EventsList = () => {
 
         {/* Search */}
         <div className="flex justify-center">
-          <form onSubmit={handleSearch} className="flex gap-4">
+          <form
+            onSubmit={handleSearch}
+            className="flex flex-col sm:flex-row gap-4 w-full max-w-md"
+          >
             <input
               type="text"
               placeholder="Search events..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="px-4 py-3 w-80 rounded-lg bg-[bg-surface] border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-primary text-[16px]"
+              className="px-4 py-3 flex-1 rounded-lg bg-[bg-surface] border-[0.5px] border-solid border-[#FCFCFC33] font-archivo text-primary text-[16px]"
             />
-            <Button text="Search" type="submit" width="w-32" />
+            <Button text="Search" type="submit" width="w-full sm:w-32" />
           </form>
         </div>
 
@@ -98,13 +101,13 @@ const EventsList = () => {
             {/* Featured Event - Only show when no search is active */}
             {!searchTerm && events.length > 0 && (
               <div className="mb-8">
-                <h2 className="text-primary font-besley text-3xl font-semibold mb-6 text-center">
+                <h2 className="text-primary font-besley text-2xl lg:text-3xl font-semibold mb-6 text-center">
                   Featured Event
                 </h2>
                 <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#FCFCFC0A] to-[#FCFCFC1A] rounded-2xl border border-[#FCFCFC33] overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
                   <div className="flex flex-col lg:flex-row">
                     {/* Featured Event Image */}
-                    <div className="lg:w-1/2 h-80 lg:h-96 bg-primary p-6">
+                    <div className="w-full lg:w-1/2 h-64 sm:h-80 lg:h-96 bg-primary p-4 lg:p-6">
                       <div className="w-full h-full rounded-xl bg-[#d9d9d9] flex justify-center items-center overflow-hidden">
                         {events[0].flyerUrl ? (
                           <Image
@@ -115,7 +118,7 @@ const EventsList = () => {
                             className="object-cover w-full h-full rounded-xl"
                           />
                         ) : (
-                          <span className="text-[#000] font-archivo text-2xl font-medium">
+                          <span className="text-[#000] font-archivo text-lg sm:text-2xl font-medium">
                             Event Flyer
                           </span>
                         )}
@@ -123,9 +126,9 @@ const EventsList = () => {
                     </div>
 
                     {/* Featured Event Details */}
-                    <div className="lg:w-1/2 p-8 lg:p-10 flex flex-col justify-between">
+                    <div className="w-full lg:w-1/2 p-6 lg:p-10 flex flex-col justify-between">
                       <div>
-                        <div className="flex items-center gap-3 mb-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
                           <span className="bg-secondary text-primary px-3 py-1 rounded-full text-sm font-medium font-archivo">
                             Next Event
                           </span>
@@ -134,28 +137,28 @@ const EventsList = () => {
                           </span>
                         </div>
 
-                        <h3 className="text-primary font-besley text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+                        <h3 className="text-primary font-besley text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 leading-tight">
                           {events[0].title}
                         </h3>
 
                         <div className="flex flex-col gap-3 mb-6">
                           <div className="flex items-center gap-3">
                             <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                            <p className="text-primary font-archivo text-lg">
+                            <p className="text-primary font-archivo text-base lg:text-lg">
                               <span className="font-semibold">Date:</span>{" "}
                               {formatDate(events[0].date)}
                             </p>
                           </div>
                           <div className="flex items-center gap-3">
                             <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                            <p className="text-primary font-archivo text-lg">
+                            <p className="text-primary font-archivo text-base lg:text-lg">
                               <span className="font-semibold">Time:</span>{" "}
                               {events[0].time}
                             </p>
                           </div>
                           <div className="flex items-center gap-3">
                             <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                            <p className="text-primary font-archivo text-lg">
+                            <p className="text-primary font-archivo text-base lg:text-lg">
                               <span className="font-semibold">Venue:</span>{" "}
                               {events[0].venue}
                             </p>
@@ -163,7 +166,7 @@ const EventsList = () => {
                         </div>
 
                         {events[0].description && (
-                          <p className="text-primary font-archivo text-base mb-6 line-clamp-4 leading-relaxed">
+                          <p className="text-primary font-archivo text-sm lg:text-base mb-6 line-clamp-4 leading-relaxed">
                             {events[0].description}
                           </p>
                         )}
@@ -175,7 +178,7 @@ const EventsList = () => {
                             {events[0].registrationCount}/{events[0].capacity}{" "}
                             registered
                           </span>
-                          <div className="w-32 bg-[#FCFCFC1A] rounded-full h-2">
+                          <div className="w-24 sm:w-32 bg-[#FCFCFC1A] rounded-full h-2">
                             <div
                               className="bg-secondary h-2 rounded-full transition-all duration-300"
                               style={{
@@ -190,20 +193,19 @@ const EventsList = () => {
                           </div>
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex flex-col sm:flex-row gap-3">
                           <Button
                             text="View Details"
-                            width="flex-1"
+                            width="w-full sm:flex-1"
                             onClick={() =>
                               router.push(`/event/${events[0].id}`)
                             }
-                            textStyle="text-primary"
-                            bgColor="bg-transparent border border-primary hover:bg-primary/10"
+                            variant="outline"
                           />
                           <Button
                             text="Register Now"
                             svg={<ArrowIcon />}
-                            width="flex-1"
+                            width="w-full sm:flex-1"
                             onClick={() => redirectToRegister(events[0].id)}
                             disabled={events[0].availableSpots <= 0}
                           />
@@ -218,17 +220,17 @@ const EventsList = () => {
             {/* Other Events Grid */}
             {filteredEvents && filteredEvents.length > 0 && (
               <div>
-                <h2 className="text-primary font-besley text-2xl font-semibold mb-6 text-center">
+                <h2 className="text-primary font-besley text-xl lg:text-2xl font-semibold mb-6 text-center">
                   {searchTerm ? "Search Results" : "Other Upcoming Events"}
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                   {filteredEvents.map((event) => (
                     <div
                       key={event.id}
                       className="bg-[bg-surface] rounded-lg border-[0.5px] border-solid border-[#FCFCFC33] overflow-hidden hover:shadow-lg transition-all duration-300"
                     >
                       {/* Event Image */}
-                      <div className="h-48 bg-primary p-4">
+                      <div className="h-40 sm:h-48 bg-primary p-4">
                         <div className="w-full h-full rounded-lg bg-[#d9d9d9] flex justify-center items-center overflow-hidden">
                           {event.flyerUrl ? (
                             <Image
@@ -239,7 +241,7 @@ const EventsList = () => {
                               className="object-cover w-full h-full rounded-lg"
                             />
                           ) : (
-                            <span className="text-[#000] font-archivo text-lg font-medium">
+                            <span className="text-[#000] font-archivo text-base lg:text-lg font-medium">
                               Event Flyer
                             </span>
                           )}
@@ -247,8 +249,8 @@ const EventsList = () => {
                       </div>
 
                       {/* Event Details */}
-                      <div className="p-6">
-                        <h3 className="text-primary font-besley text-xl font-semibold mb-3 line-clamp-2">
+                      <div className="p-4 lg:p-6">
+                        <h3 className="text-primary font-besley text-lg lg:text-xl font-semibold mb-3 line-clamp-2">
                           {event.title}
                         </h3>
 
@@ -267,7 +269,7 @@ const EventsList = () => {
                           </p>
                         </div>
 
-                        <div className="flex justify-between items-center mb-4">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
                           <span className="text-secondary font-archivo text-sm font-medium">
                             {event.availableSpots} spots left
                           </span>
@@ -288,8 +290,7 @@ const EventsList = () => {
                             text="View Details"
                             width="w-full"
                             onClick={() => router.push(`/event/${event.id}`)}
-                            textStyle="text-primary"
-                            bgColor="bg-transparent border border-primary hover:bg-primary/10"
+                            variant="outline"
                           />
                           <Button
                             text="Register Now"
@@ -330,15 +331,16 @@ const EventsList = () => {
 
         {/* Pagination */}
         {pagination && pagination.totalPages > 1 && (
-          <div className="flex justify-center items-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <Button
               text="Previous"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage <= 1}
-              width="w-32"
+              width="w-full sm:w-32"
+              size="sm"
             />
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 overflow-x-auto">
               {Array.from(
                 { length: pagination.totalPages },
                 (_, i) => i + 1
@@ -346,7 +348,7 @@ const EventsList = () => {
                 <button
                   key={page}
                   onClick={() => handlePageChange(page)}
-                  className={`px-4 py-2 rounded-lg font-archivo text-sm transition-all duration-300 ${
+                  className={`px-3 lg:px-4 py-2 rounded-lg font-archivo text-sm transition-all duration-300 min-w-[40px] ${
                     currentPage === page
                       ? "bg-primary text-secondary font-medium"
                       : "bg-[bg-surface] text-primary border border-[#FCFCFC33] hover:bg-primary/10"
@@ -361,7 +363,8 @@ const EventsList = () => {
               text="Next"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage >= pagination.totalPages}
-              width="w-32"
+              width="w-full sm:w-32"
+              size="sm"
             />
           </div>
         )}

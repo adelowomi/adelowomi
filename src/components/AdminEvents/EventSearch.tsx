@@ -63,8 +63,8 @@ const Modal: React.FC<ModalProps> = ({
       onClick={handleBackdropClick}
     >
       <div className="bg-background border border-[#FCFCFC1A] rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl">
-        <div className="sticky top-0 bg-background border-b border-[#FCFCFC1A] px-6 py-4 flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-primary font-besley">
+        <div className="sticky top-0 bg-background border-b border-[#FCFCFC1A] px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+          <h2 className="text-lg sm:text-xl font-semibold text-primary font-besley">
             Create New Event
           </h2>
           <button
@@ -75,7 +75,7 @@ const Modal: React.FC<ModalProps> = ({
             <CloseIcon />
           </button>
         </div>
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {children || (
             <div className="text-center text-gray-400">
               No content available.
@@ -99,9 +99,9 @@ const EventSearch: React.FC<EventSearchProps> = ({
     setModalVisible(!isModalVisible);
   };
   return (
-    <div className="flex justify-between">
+    <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
       <div></div>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <SearchBar />
         <Button text={buttonText} svg={buttonSvg} onClick={toggleModal} />
       </div>
