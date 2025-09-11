@@ -93,12 +93,12 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
   };
 
   return (
-    <div className="px-6 md:px-12 lg:px-28 py-12 md:py-16 lg:py-24 min-h-screen gradient-mesh">
+    <div className="min-h-screen px-6 py-12 md:px-12 lg:px-28 md:py-16 lg:py-24 gradient-mesh">
       {/* Back Navigation */}
       <div className="mb-8">
         <button
           onClick={() => window.history.back()}
-          className="flex items-center gap-2 text-secondary hover:text-primary transition-colors duration-200 font-archivo font-medium group"
+          className="flex items-center gap-2 font-medium transition-colors duration-200 text-secondary hover:text-primary font-archivo group"
         >
           <svg
             className="w-5 h-5 transition-transform duration-200 group-hover:-translate-x-1"
@@ -117,21 +117,36 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
         </button>
       </div>
 
+      {/* Mobile Flyer - Show at top on mobile only */}
+      {event.flyerUrl && (
+        <div className="mb-8 lg:hidden">
+          <div className="relative aspect-[3/4] max-w-sm mx-auto rounded-2xl overflow-hidden bg-surface border border-[#FCFCFC1A] card-hover group">
+            <Image
+              src={event.flyerUrl}
+              alt={`${event.title} flyer`}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-black/20 via-transparent to-transparent group-hover:opacity-100"></div>
+          </div>
+        </div>
+      )}
+
       {/* Event Header */}
       <div className="mb-16 lg:mb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="grid items-center grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
           <div className="space-y-6">
             <div>
               <h1 className="text-primary font-semibold text-3xl md:text-4xl lg:text-[48px] font-besley mb-2 leading-tight">
                 {event.title}
               </h1>
-              <div className="horizontal-line mb-6"></div>
+              <div className="mb-6 horizontal-line"></div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
               <div className="bg-surface rounded-xl p-4 border border-[#FCFCFC1A] card-hover">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-lg purple-gradient flex items-center justify-center">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg purple-gradient">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="currentColor"
@@ -144,18 +159,18 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
                       />
                     </svg>
                   </div>
-                  <span className="text-secondary font-archivo text-sm font-medium uppercase tracking-wide">
+                  <span className="text-sm font-medium tracking-wide uppercase text-secondary font-archivo">
                     Date
                   </span>
                 </div>
-                <p className="text-primary font-archivo text-lg font-semibold">
+                <p className="text-lg font-semibold text-primary font-archivo">
                   {formatDate(event.date)}
                 </p>
               </div>
 
               <div className="bg-surface rounded-xl p-4 border border-[#FCFCFC1A] card-hover">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-lg purple-gradient flex items-center justify-center">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg purple-gradient">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="currentColor"
@@ -168,18 +183,18 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
                       />
                     </svg>
                   </div>
-                  <span className="text-secondary font-archivo text-sm font-medium uppercase tracking-wide">
+                  <span className="text-sm font-medium tracking-wide uppercase text-secondary font-archivo">
                     Time
                   </span>
                 </div>
-                <p className="text-primary font-archivo text-lg font-semibold">
+                <p className="text-lg font-semibold text-primary font-archivo">
                   {event.time}
                 </p>
               </div>
 
               <div className="bg-surface rounded-xl p-4 border border-[#FCFCFC1A] card-hover">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-lg purple-gradient flex items-center justify-center">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg purple-gradient">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="currentColor"
@@ -192,18 +207,18 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
                       />
                     </svg>
                   </div>
-                  <span className="text-secondary font-archivo text-sm font-medium uppercase tracking-wide">
+                  <span className="text-sm font-medium tracking-wide uppercase text-secondary font-archivo">
                     Venue
                   </span>
                 </div>
-                <p className="text-primary font-archivo text-lg font-semibold">
+                <p className="text-lg font-semibold text-primary font-archivo">
                   {event.venue}
                 </p>
               </div>
 
               <div className="bg-surface rounded-xl p-4 border border-[#FCFCFC1A] card-hover">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-lg purple-gradient flex items-center justify-center">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg purple-gradient">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="currentColor"
@@ -212,11 +227,11 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
                       <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                     </svg>
                   </div>
-                  <span className="text-secondary font-archivo text-sm font-medium uppercase tracking-wide">
+                  <span className="text-sm font-medium tracking-wide uppercase text-secondary font-archivo">
                     Capacity
                   </span>
                 </div>
-                <p className="text-primary font-archivo text-lg font-semibold">
+                <p className="text-lg font-semibold text-primary font-archivo">
                   {event.capacity} attendees
                 </p>
               </div>
@@ -224,25 +239,26 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
 
             {event.description && (
               <div className="bg-surface rounded-xl p-6 border border-[#FCFCFC1A]">
-                <h3 className="text-secondary font-archivo text-sm font-medium uppercase tracking-wide mb-3">
+                <h3 className="mb-3 text-sm font-medium tracking-wide uppercase text-secondary font-archivo">
                   About This Event
                 </h3>
-                <p className="text-primary font-archivo text-lg leading-relaxed">
+                <p className="text-lg leading-relaxed text-primary font-archivo">
                   {event.description}
                 </p>
               </div>
             )}
           </div>
 
+          {/* Desktop Flyer - Show on desktop only */}
           {event.flyerUrl && (
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-surface border border-[#FCFCFC1A] card-hover group">
+            <div className="hidden lg:block relative aspect-[3/4] rounded-2xl overflow-hidden bg-surface border border-[#FCFCFC1A] card-hover group">
               <Image
                 src={event.flyerUrl}
                 alt={`${event.title} flyer`}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-black/20 via-transparent to-transparent group-hover:opacity-100"></div>
             </div>
           )}
         </div>
@@ -252,12 +268,12 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
       {(images.length > 0 || videos.length > 0) && !loading && (
         <div className="mb-12">
           <div className="bg-surface rounded-2xl border border-[#FCFCFC1A] p-6 lg:p-8">
-            <h3 className="text-primary font-semibold text-xl font-besley mb-6">
+            <h3 className="mb-6 text-xl font-semibold text-primary font-besley">
               Media Gallery
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
               <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-3 purple-gradient rounded-xl flex items-center justify-center">
+                <div className="flex items-center justify-center w-12 h-12 mx-auto mb-3 purple-gradient rounded-xl">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="currentColor"
@@ -279,7 +295,7 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
               </div>
 
               <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-3 purple-gradient rounded-xl flex items-center justify-center">
+                <div className="flex items-center justify-center w-12 h-12 mx-auto mb-3 purple-gradient rounded-xl">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="currentColor"
@@ -297,7 +313,7 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
               </div>
 
               <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-3 purple-gradient rounded-xl flex items-center justify-center">
+                <div className="flex items-center justify-center w-12 h-12 mx-auto mb-3 purple-gradient rounded-xl">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="currentColor"
@@ -319,7 +335,7 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
               </div>
 
               <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-3 purple-gradient rounded-xl flex items-center justify-center">
+                <div className="flex items-center justify-center w-12 h-12 mx-auto mb-3 purple-gradient rounded-xl">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="currentColor"
@@ -357,7 +373,7 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
         {/* Images Section */}
         {images.length > 0 && (
           <div>
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-10">
+            <div className="flex flex-col gap-4 mb-10 sm:flex-row sm:justify-between sm:items-center">
               <div>
                 <h2 className="text-primary font-semibold text-2xl md:text-3xl lg:text-[32px] font-besley mb-2">
                   Event Photos
@@ -365,7 +381,7 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
                 <div className="horizontal-line"></div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="bg-secondary text-primary px-4 py-2 rounded-full font-archivo font-medium">
+                <div className="px-4 py-2 font-medium rounded-full bg-secondary text-primary font-archivo">
                   {images.length} photo{images.length !== 1 ? "s" : ""}
                 </div>
               </div>
@@ -395,7 +411,7 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
         {/* Videos Section */}
         {videos.length > 0 && (
           <div>
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-10">
+            <div className="flex flex-col gap-4 mb-10 sm:flex-row sm:justify-between sm:items-center">
               <div>
                 <h2 className="text-primary font-semibold text-2xl md:text-3xl lg:text-[32px] font-besley mb-2">
                   Event Videos
@@ -403,7 +419,7 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
                 <div className="horizontal-line"></div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="bg-secondary text-primary px-4 py-2 rounded-full font-archivo font-medium">
+                <div className="px-4 py-2 font-medium rounded-full bg-secondary text-primary font-archivo">
                   {videos.length} video{videos.length !== 1 ? "s" : ""}
                 </div>
               </div>
@@ -432,9 +448,9 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
 
         {/* Error State */}
         {error && (
-          <div className="text-center py-16 lg:py-20">
-            <div className="bg-surface rounded-2xl border border-red-500/20 p-12 max-w-md mx-auto">
-              <div className="w-24 h-24 mx-auto mb-6 bg-red-500/20 rounded-full flex items-center justify-center">
+          <div className="py-16 text-center lg:py-20">
+            <div className="max-w-md p-12 mx-auto border bg-surface rounded-2xl border-red-500/20">
+              <div className="flex items-center justify-center w-24 h-24 mx-auto mb-6 rounded-full bg-red-500/20">
                 <svg
                   className="w-12 h-12 text-red-400"
                   fill="none"
@@ -449,17 +465,17 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
                   />
                 </svg>
               </div>
-              <h3 className="text-red-400 text-xl font-semibold font-besley mb-3">
+              <h3 className="mb-3 text-xl font-semibold text-red-400 font-besley">
                 Error Loading Media
               </h3>
-              <div className="horizontal-line mx-auto mb-4 bg-red-500/30"></div>
-              <p className="text-primary/80 font-archivo leading-relaxed mb-6">
+              <div className="mx-auto mb-4 horizontal-line bg-red-500/30"></div>
+              <p className="mb-6 leading-relaxed text-primary/80 font-archivo">
                 We encountered an issue loading the event media. Please try
                 refreshing the page.
               </p>
               <button
                 onClick={() => window.location.reload()}
-                className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl transition-all duration-200 font-archivo font-medium hover:scale-105"
+                className="px-6 py-3 font-medium text-white transition-all duration-200 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 rounded-xl font-archivo hover:scale-105"
               >
                 Refresh Page
               </button>
@@ -469,9 +485,9 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
 
         {/* Empty State */}
         {!error && images.length === 0 && videos.length === 0 && !loading && (
-          <div className="text-center py-16 lg:py-20">
+          <div className="py-16 text-center lg:py-20">
             <div className="bg-surface rounded-2xl border border-[#FCFCFC1A] p-12 max-w-md mx-auto">
-              <div className="w-24 h-24 mx-auto mb-6 purple-gradient rounded-full flex items-center justify-center shadow-lg">
+              <div className="flex items-center justify-center w-24 h-24 mx-auto mb-6 rounded-full shadow-lg purple-gradient">
                 <svg
                   className="w-12 h-12 text-white"
                   fill="none"
@@ -486,11 +502,11 @@ const EventDetailView = ({ event }: EventDetailViewProps) => {
                   />
                 </svg>
               </div>
-              <h3 className="text-primary text-xl font-semibold font-besley mb-3">
+              <h3 className="mb-3 text-xl font-semibold text-primary font-besley">
                 No Media Available
               </h3>
-              <div className="horizontal-line mx-auto mb-4"></div>
-              <p className="text-primary/80 font-archivo leading-relaxed">
+              <div className="mx-auto mb-4 horizontal-line"></div>
+              <p className="leading-relaxed text-primary/80 font-archivo">
                 Photos and videos from this event will appear here once they're
                 uploaded. Check back soon for amazing memories!
               </p>
