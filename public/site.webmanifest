@@ -1,0 +1,22 @@
+{
+  "name": "Adelowo Ajibola",
+  "short_name": "Adelowo",
+  "description": "Software Engineer, Tech Leader, and Event Organizer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#732383",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/logo-primary.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
