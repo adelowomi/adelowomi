@@ -5,7 +5,7 @@ import {
   ErrorCode,
   HttpStatus,
   PaginationMeta,
-} from "../../../types/api.types";
+} from "@/types/api.types";
 
 // Enhanced error logging utility
 interface ErrorLogContext {

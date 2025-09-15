@@ -4,7 +4,7 @@ import { z } from "zod";
 export const StudentStatusSchema = z.enum(["STUDENT", "GRADUATE"]);
 
 // Phone number validation regex (supports various formats)
-const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,20}$/;
 
 // Email validation with additional checks
 const emailSchema = z
@@ -22,68 +22,74 @@ const emailSchema = z
 // Phone number validation with formatting
 const phoneSchema = z
   .string()
-  .min(10, "Phone number must be at least 10 digits")
-  .max(15, "Phone number must be less than 15 digits")
+  .min(1, "Phone number is required")
   .regex(phoneRegex, "Invalid phone number format")
   .transform((phone) => {
     // Remove all non-digit characters for storage
     return phone.replace(/\D/g, "");
   })
   .refine(
-    (phone) => phone.length >= 10,
-    "Phone number must have at least 10 digits"
+    (phone) => phone.length >= 10 && phone.length <= 15,
+    "Phone number must be between 10 and 15 digits"
   );
 
 // Registration creation schema
-export const CreateRegistrationSchema = z.object({
-  eventId: z
-    .string()
-    .min(1, "Event ID is required")
-    .regex(/^[a-zA-Z0-9_-]+$/, "Invalid event ID format"),
-  firstName: z
-    .string()
-    .min(1, "First name is required")
-    .max(50, "First name must be less than 50 characters")
-    .regex(
-      /^[a-zA-Z\s'-]+$/,
-      "First name can only contain letters, spaces, hyphens, and apostrophes"
-    )
-    .trim(),
-  lastName: z
-    .string()
-    .min(1, "Last name is required")
-    .max(50, "Last name must be less than 50 characters")
-    .regex(
-      /^[a-zA-Z\s'-]+$/,
-      "Last name can only contain letters, spaces, hyphens, and apostrophes"
-    )
-    .trim(),
-  email: emailSchema,
-  phone: phoneSchema,
-  status: StudentStatusSchema,
-  course: z
-    .string()
-    .max(100, "Course name must be less than 100 characters")
-    .trim()
-    .optional()
-    .refine((course, ctx) => {
-      // If status is STUDENT, course should be provided
-      if (ctx.parent.status === "STUDENT" && (!course || course.length === 0)) {
-        return false;
-      }
-      return true;
-    }, "Course is required for students"),
-  areaOfInterest: z
-    .string()
-    .min(1, "Area of interest is required")
-    .max(200, "Area of interest must be less than 200 characters")
-    .trim(),
-  expectations: z
-    .string()
-    .max(1000, "Expectations must be less than 1000 characters")
-    .trim()
-    .optional(),
-});
+export const CreateRegistrationSchema = z
+  .object({
+    eventId: z
+      .string()
+      .min(1, "Event ID is required")
+      .regex(/^[a-zA-Z0-9_-]+$/, "Invalid event ID format"),
+    firstName: z
+      .string()
+      .min(1, "First name is required")
+      .max(50, "First name must be less than 50 characters")
+      .regex(
+        /^[a-zA-Z\s'-]+$/,
+        "First name can only contain letters, spaces, hyphens, and apostrophes"
+      )
+      .trim(),
+    lastName: z
+      .string()
+      .min(1, "Last name is required")
+      .max(50, "Last name must be less than 50 characters")
+      .regex(
+        /^[a-zA-Z\s'-]+$/,
+        "Last name can only contain letters, spaces, hyphens, and apostrophes"
+      )
+      .trim(),
+    email: emailSchema,
+    phone: phoneSchema,
+    status: StudentStatusSchema,
+    course: z
+      .string()
+      .max(100, "Course name must be less than 100 characters")
+      .trim()
+      .optional(),
+    areaOfInterest: z
+      .string()
+      .min(1, "Area of interest is required")
+      .max(200, "Area of interest must be less than 200 characters")
+      .trim(),
+    expectations: z
+      .string()
+      .max(1000, "Expectations must be less than 1000 characters")
+      .trim()
+      .optional(),
+  })
+  .superRefine((data, ctx) => {
+    // Validate course requirement based on student status
+    if (
+      data.status === "STUDENT" &&
+      (!data.course || data.course.length === 0)
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Course is required for students",
+        path: ["course"],
+      });
+    }
+  });
 
 // Registration query parameters schema
 export const RegistrationQuerySchema = z.object({

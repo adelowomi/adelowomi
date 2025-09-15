@@ -52,3 +52,36 @@ export interface FileUploadResponse {
   mimeType: string;
   size: number;
 }
+
+// Error Codes
+export enum ErrorCode {
+  VALIDATION_ERROR = "VALIDATION_ERROR",
+  NOT_FOUND = "NOT_FOUND",
+  UNAUTHORIZED = "UNAUTHORIZED",
+  FORBIDDEN = "FORBIDDEN",
+  CAPACITY_EXCEEDED = "CAPACITY_EXCEEDED",
+  DUPLICATE_REGISTRATION = "DUPLICATE_REGISTRATION",
+  DRIVE_ERROR = "DRIVE_ERROR",
+  DATABASE_ERROR = "DATABASE_ERROR",
+  INTERNAL_ERROR = "INTERNAL_ERROR",
+}
+
+// HTTP Status Codes
+export enum HttpStatus {
+  OK = 200,
+  CREATED = 201,
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  CONFLICT = 409,
+  INTERNAL_SERVER_ERROR = 500,
+}
+
+// Pagination Meta
+export interface PaginationMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}

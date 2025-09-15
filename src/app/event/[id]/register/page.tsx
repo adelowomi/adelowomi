@@ -12,13 +12,15 @@ interface RegisterEventPageProps {
 
 const RegisterEventPage = ({ params }: RegisterEventPageProps) => {
   return (
-    <div className="max-w-[1440px] my-0 mx-auto">
-      <Navbar />
-      <div className="py-24">
-        <RegisterEventForm eventId={params.id} />
+    <div>
+      <div className="relative z-10">
+        <Navbar />
       </div>
-      <Contact />
-      <Footer />
+      <RegisterEventForm eventId={params.id} />
+      <div className="max-w-[1440px] my-0 mx-auto">
+        <Contact />
+        <Footer />
+      </div>
     </div>
   );
 };

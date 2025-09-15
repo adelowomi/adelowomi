@@ -6,10 +6,11 @@ export interface RegistrationData {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
-  isStudent: boolean;
+  phone: string;
+  status: "STUDENT" | "GRADUATE";
+  course?: string;
   areaOfInterest: string;
-  expectations: string;
+  expectations?: string;
 }
 
 export const useRegistration = () => {
@@ -33,6 +34,10 @@ export const useRegistration = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.log("Full error data:", errorData);
+        if (errorData.details) {
+          console.log("Validation details:", errorData.details);
+        }
         throw new Error(errorData.message || "Registration failed");
       }
 
