@@ -7,6 +7,7 @@ import Image from "next/image";
 import { getGoogleDriveImageUrl } from "@/lib/utils/file-helpers";
 import { HeroDecorativeIcon } from "@/icons";
 import Navbar from "@/components/shared/Navbar";
+import ErrorNotification from "@/components/ui/ErrorNotification";
 
 interface VolunteerFormQuestion {
   id: string;
@@ -51,6 +52,7 @@ const VolunteerFormPage = () => {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -87,6 +89,7 @@ const VolunteerFormPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setError(null);
 
     try {
       const response = await fetch(`/api/volunteer-forms/${formId}/submit`, {
@@ -103,11 +106,17 @@ const VolunteerFormPage = () => {
       if (response.ok) {
         setSubmitted(true);
       } else {
-        alert("Failed to submit form. Please try again.");
+        const errorData = await response.json();
+
+        if (errorData.error === "DUPLICATE_SUBMISSION") {
+          setError(errorData.message);
+        } else {
+          setError("Failed to submit form. Please try again.");
+        }
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Failed to submit form. Please try again.");
+      setError("Failed to submit form. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -352,6 +361,13 @@ const VolunteerFormPage = () => {
   return (
     <div className="max-w-[1440px] my-0 mx-auto">
       <Navbar />
+      {error && (
+        <ErrorNotification
+          message={error}
+          type="error"
+          onClose={() => setError(null)}
+        />
+      )}
       <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5">
         {/* Hero Section with Event Flyer */}
         <div className="relative overflow-hidden bg-white">

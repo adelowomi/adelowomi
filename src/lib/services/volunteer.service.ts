@@ -104,28 +104,72 @@ export class VolunteerService {
   }
 
   static async submitVolunteerForm(data: VolunteerSubmissionData) {
-    return await prisma.volunteerSubmission.create({
-      data: {
-        volunteerFormId: data.volunteerFormId,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
-        answers: {
-          create: data.answers.map((answer) => ({
-            questionId: answer.questionId,
-            answer: answer.answer,
-          })),
-        },
-      },
-      include: {
-        answers: {
-          include: {
-            question: true,
+    try {
+      // Check if user has already submitted for this volunteer form
+      const existingSubmission = await prisma.volunteerSubmission.findUnique({
+        where: {
+          volunteerFormId_email: {
+            volunteerFormId: data.volunteerFormId,
+            email: data.email,
           },
         },
-      },
-    });
+        include: {
+          volunteerForm: {
+            include: {
+              event: true,
+            },
+          },
+        },
+      });
+
+      if (existingSubmission) {
+        throw new Error(
+          `DUPLICATE_SUBMISSION:${existingSubmission.volunteerForm.event.title}`
+        );
+      }
+
+      return await prisma.volunteerSubmission.create({
+        data: {
+          volunteerFormId: data.volunteerFormId,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          answers: {
+            create: data.answers.map((answer) => ({
+              questionId: answer.questionId,
+              answer: answer.answer,
+            })),
+          },
+        },
+        include: {
+          answers: {
+            include: {
+              question: true,
+            },
+          },
+        },
+      });
+    } catch (error: unknown) {
+      // Re-throw our custom error or handle Prisma unique constraint errors
+      if (error.message?.startsWith("DUPLICATE_SUBMISSION:")) {
+        throw error;
+      }
+
+      // Handle Prisma unique constraint violation
+      if (error.code === "P2002" && error.meta?.target?.includes("email")) {
+        // Get the volunteer form to include event title in error
+        const volunteerForm = await prisma.volunteerForm.findUnique({
+          where: { id: data.volunteerFormId },
+          include: { event: true },
+        });
+
+        const eventTitle = volunteerForm?.event.title || "this event";
+        throw new Error(`DUPLICATE_SUBMISSION:${eventTitle}`);
+      }
+
+      throw error;
+    }
   }
 
   static async updateVolunteerFormStatus(id: string, isActive: boolean) {

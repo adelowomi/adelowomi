@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import EditVolunteerFormModal from "./EditVolunteerFormModal";
+import ErrorNotification from "@/components/ui/ErrorNotification";
+import SuccessNotification from "@/components/ui/SuccessNotification";
 
 interface VolunteerForm {
   id: string;
@@ -39,6 +41,8 @@ const VolunteerFormsList: React.FC<VolunteerFormsListProps> = ({
   const [loading, setLoading] = useState(true);
   const [editingForm, setEditingForm] = useState<VolunteerForm | null>(null);
   const [deletingFormId, setDeletingFormId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const fetchVolunteerForms = async () => {
     try {
@@ -105,12 +109,13 @@ const VolunteerFormsList: React.FC<VolunteerFormsListProps> = ({
 
       if (response.ok) {
         fetchVolunteerForms();
+        setSuccess("Volunteer form deleted successfully!");
       } else {
-        alert("Failed to delete the volunteer form. Please try again.");
+        setError("Failed to delete the volunteer form. Please try again.");
       }
     } catch (error) {
       console.error("Error deleting form:", error);
-      alert("Failed to delete the volunteer form. Please try again.");
+      setError("Failed to delete the volunteer form. Please try again.");
     } finally {
       setDeletingFormId(null);
     }
@@ -144,6 +149,19 @@ const VolunteerFormsList: React.FC<VolunteerFormsListProps> = ({
 
   return (
     <>
+      {error && (
+        <ErrorNotification
+          message={error}
+          type="error"
+          onClose={() => setError(null)}
+        />
+      )}
+      {success && (
+        <SuccessNotification
+          message={success}
+          onClose={() => setSuccess(null)}
+        />
+      )}
       <div className="grid gap-4">
         {volunteerForms.map((form) => (
           <div
@@ -207,7 +225,7 @@ const VolunteerFormsList: React.FC<VolunteerFormsListProps> = ({
                   onClick={() => {
                     const url = `${window.location.origin}/volunteer/${form.id}`;
                     navigator.clipboard.writeText(url);
-                    alert("Volunteer form URL copied to clipboard!");
+                    setSuccess("Volunteer form URL copied to clipboard!");
                   }}
                   className="bg-purple-500/20 text-purple-400 px-3 py-1 rounded text-xs sm:text-sm hover:bg-purple-500/30 transition-colors"
                 >

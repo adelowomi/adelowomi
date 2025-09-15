@@ -26,8 +26,22 @@ export async function POST(
     });
 
     return NextResponse.json(submission, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error submitting volunteer form:", error);
+
+    // Handle duplicate submission error
+    if (error.message?.startsWith("DUPLICATE_SUBMISSION:")) {
+      const eventTitle = error.message.split(":")[1];
+      return NextResponse.json(
+        {
+          error: "DUPLICATE_SUBMISSION",
+          message: `You have already submitted a volunteer application for "${eventTitle}". Each person can only apply once per event.`,
+          eventTitle,
+        },
+        { status: 409 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Failed to submit volunteer form" },
       { status: 500 }
