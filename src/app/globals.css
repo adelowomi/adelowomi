@@ -286,6 +286,30 @@ input[type="time"]::-webkit-datetime-edit-minute-field,
 input[type="time"]::-webkit-datetime-edit-ampm-field {
   color: var(--foreground);
 }
+
+/* Fix input text visibility - ensure all form inputs have dark text */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="url"],
+textarea,
+select {
+  color: #374151 !important; /* Dark gray text */
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="password"]::placeholder,
+input[type="number"]::placeholder,
+input[type="search"]::placeholder,
+input[type="url"]::placeholder,
+textarea::placeholder {
+  color: #9ca3af !important; /* Light gray placeholder */
+}
 /* Mobile Menu Styles */
 .mobile-menu-open {
   overflow: hidden;
