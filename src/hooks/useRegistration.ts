@@ -51,6 +51,37 @@ export const useRegistration = () => {
     }
   };
 
+  const deleteRegistration = async (registrationId: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch(
+        `/api/admin/registrations/${registrationId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to delete registration");
+      }
+
+      return await response.json();
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to delete registration"
+      );
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const resetState = () => {
     setError(null);
     setSuccess(false);
@@ -58,6 +89,7 @@ export const useRegistration = () => {
 
   return {
     registerForEvent,
+    deleteRegistration,
     loading,
     error,
     success,

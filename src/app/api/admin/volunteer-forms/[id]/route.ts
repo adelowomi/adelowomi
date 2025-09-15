@@ -43,6 +43,26 @@ export async function PATCH(
   }
 }
 
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const data = await request.json();
+    const volunteerForm = await VolunteerService.updateVolunteerForm(
+      params.id,
+      data
+    );
+    return NextResponse.json(volunteerForm);
+  } catch (error) {
+    console.error("Error updating volunteer form:", error);
+    return NextResponse.json(
+      { error: "Failed to update volunteer form" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }

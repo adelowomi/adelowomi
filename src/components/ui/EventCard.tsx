@@ -6,6 +6,7 @@ import ProgressBar from "./ProgressBar";
 import { Event, EventStatus } from "@/types/event.types";
 import { useAdminEvents } from "@/hooks/useAdmin";
 import { getGoogleDriveImageUrl } from "@/lib/utils/file-helpers";
+import Image from "next/image";
 
 interface EventCardProps {
   event?: Event;
@@ -126,11 +127,13 @@ const EventCard: React.FC<EventCardProps> = ({ event, onEdit, onView }) => {
     <div className="flex flex-col gap-4 sm:gap-6 rounded-lg border-[0.5px] border-solid border-[#fcfcfc33] w-full max-w-[356px]">
       <div className="w-full h-[180px] sm:h-[218px] rounded-lg bg-[#d9d9d9] flex justify-center items-center overflow-hidden">
         {eventData.flyerUrl ? (
-          <img
-            src={getGoogleDriveImageUrl(eventData.flyerUrl)}
-            alt={eventData.title}
-            className="w-full h-full object-cover"
-          />
+          <Image
+                    src={getGoogleDriveImageUrl(eventData.flyerUrl)}
+                    alt={eventData.title}
+                    width={500}
+                    height={400}
+                    className="object-cover w-full h-full rounded-xl"
+                  />
         ) : (
           <h2 className="text-black text-lg sm:text-[24px] font-medium font-archivo text-center px-3 sm:px-4">
             {eventData.title}

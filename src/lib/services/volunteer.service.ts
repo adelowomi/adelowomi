@@ -17,6 +17,13 @@ export interface CreateVolunteerFormData {
   questions: VolunteerFormQuestion[];
 }
 
+export interface UpdateVolunteerFormData {
+  title?: string;
+  description?: string;
+  questions?: VolunteerFormQuestion[];
+  isActive?: boolean;
+}
+
 export interface VolunteerSubmissionData {
   volunteerFormId: string;
   firstName: string;
@@ -126,6 +133,56 @@ export class VolunteerService {
       where: { id },
       data: { isActive },
     });
+  }
+
+  static async updateVolunteerForm(id: string, data: UpdateVolunteerFormData) {
+    // If questions are being updated, we need to handle them separately
+    if (data.questions) {
+      // Delete existing questions and create new ones
+      await prisma.volunteerFormQuestion.deleteMany({
+        where: { volunteerFormId: id },
+      });
+
+      return await prisma.volunteerForm.update({
+        where: { id },
+        data: {
+          title: data.title,
+          description: data.description,
+          isActive: data.isActive,
+          questions: {
+            create: data.questions.map((q, index) => ({
+              question: q.question,
+              type: q.type,
+              required: q.required,
+              options: q.options ? JSON.stringify(q.options) : null,
+              order: index,
+            })),
+          },
+        },
+        include: {
+          questions: {
+            orderBy: { order: "asc" },
+          },
+          event: true,
+        },
+      });
+    } else {
+      // Update only form metadata
+      return await prisma.volunteerForm.update({
+        where: { id },
+        data: {
+          title: data.title,
+          description: data.description,
+          isActive: data.isActive,
+        },
+        include: {
+          questions: {
+            orderBy: { order: "asc" },
+          },
+          event: true,
+        },
+      });
+    }
   }
 
   static async deleteVolunteerForm(id: string) {

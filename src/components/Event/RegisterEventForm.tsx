@@ -190,12 +190,12 @@ const RegisterEventForm = ({ eventId }: RegisterEventFormProps) => {
                 <div className="absolute -inset-1 bg-gradient-to-r from-[#8F6302] to-[#D4AF37] rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
                 <div className="relative bg-[#1A1A1A] rounded-xl overflow-hidden border border-[#8F630233]">
                   <Image
-                            src={getGoogleDriveImageUrl(event.flyerUrl)}
-                            alt={event.title}
-                            width={500}
-                            height={400}
-                            className="object-cover w-full h-full rounded-xl"
-                          />
+                    src={getGoogleDriveImageUrl(event.flyerUrl)}
+                    alt={event.title}
+                    width={500}
+                    height={400}
+                    className="object-cover w-full h-full rounded-xl"
+                  />
                 </div>
               </div>
             ) : (

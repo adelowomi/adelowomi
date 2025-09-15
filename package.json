@@ -12,7 +12,10 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:reset": "prisma migrate reset",
     "db:studio": "prisma studio",
-    "db:verify": "tsx scripts/verify-setup.ts"
+    "db:verify": "tsx scripts/verify-setup.ts",
+    "test:registration-delete": "tsx scripts/test-registration-delete.ts",
+    "test:registration-service": "tsx scripts/test-registration-service.ts",
+    "create:test-registrations": "tsx scripts/create-test-registrations.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

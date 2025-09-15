@@ -209,6 +209,24 @@ const EventView: React.FC<EventViewProps> = ({
                       {new Date(viewingEvent.updatedAt).toLocaleDateString()}
                     </p>
                   </div>
+
+                  {/* View Registrants Button */}
+                  <div className="mt-4">
+                    <a
+                      href="/admin/events/registrants"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-[#732383] hover:bg-[#732383]/80 text-white rounded-lg transition-colors text-sm font-medium"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path d="M10 10C12.7614 10 15 7.76142 15 5C15 2.23858 12.7614 0 10 0C7.23858 0 5 2.23858 5 5C5 7.76142 7.23858 10 10 10ZM10 12.5C6.66875 12.5 0 14.175 0 17.5V20H20V17.5C20 14.175 13.3312 12.5 10 12.5Z" />
+                      </svg>
+                      View All Registrants
+                    </a>
+                  </div>
                 </div>
               </div>
 

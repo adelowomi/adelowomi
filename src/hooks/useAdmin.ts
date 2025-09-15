@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export interface DashboardStats {
   events: {
@@ -241,7 +241,7 @@ export const useAdminRegistrations = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchRegistrations = async (params?: any) => {
+  const fetchRegistrations = useCallback(async (params?: any) => {
     try {
       setLoading(true);
       setError(null);
@@ -270,7 +270,7 @@ export const useAdminRegistrations = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const exportRegistrations = async (
     eventId: string,
@@ -297,6 +297,37 @@ export const useAdminRegistrations = () => {
     }
   };
 
+  const deleteRegistration = async (registrationId: string) => {
+    try {
+      const response = await fetch(
+        `/api/admin/registrations/${registrationId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to delete registration");
+      }
+
+      const result = await response.json();
+
+      // Update local state by removing the deleted registration
+      setRegistrations((prev) =>
+        prev.filter((reg) => reg.id !== registrationId)
+      );
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   useEffect(() => {
     fetchRegistrations();
   }, []);
@@ -306,6 +337,7 @@ export const useAdminRegistrations = () => {
     loading,
     error,
     exportRegistrations,
+    deleteRegistration,
     refetch: fetchRegistrations,
   };
 };
