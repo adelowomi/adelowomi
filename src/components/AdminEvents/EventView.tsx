@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import EventCard from "../ui/EventCard";
-import { useAdminEvents } from "@/hooks/useAdmin";
+import { useAdminEvents, useAdminRegistrations } from "@/hooks/useAdmin";
 import { useEventSearch } from "@/hooks/useEventSearch";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { Event, EventStatus } from "@/types/event.types";
@@ -20,8 +20,10 @@ const EventView: React.FC<EventViewProps> = ({
   statusFilter = "ALL",
 }) => {
   const { events, loading, error } = useAdminEvents();
+  const { exportRegistrations } = useAdminRegistrations();
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
   const [viewingEvent, setViewingEvent] = useState<Event | null>(null);
+  const [isExporting, setIsExporting] = useState(false);
 
   console.log(
     "EventView - Loading:",
@@ -62,6 +64,37 @@ const EventView: React.FC<EventViewProps> = ({
     setEditingEvent(null);
   };
 
+  const handleExportRegistrations = async (eventId: string, eventTitle: string) => {
+    try {
+      setIsExporting(true);
+      const result = await exportRegistrations(eventId, "csv");
+
+      // Create and download the file
+      const blob = new Blob([JSON.stringify(result.data, null, 2)], {
+        type: "text/csv",
+      });
+
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+
+      const timestamp = new Date().toISOString().split('T')[0];
+      link.download = `${eventTitle}_registrations_${timestamp}.csv`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      alert("Export completed successfully!");
+    } catch (error) {
+      console.error("Export failed:", error);
+      alert("Export failed. Please try again.");
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
@@ -73,9 +106,9 @@ const EventView: React.FC<EventViewProps> = ({
   if (error) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
-        <div className="text-red-500 text-center">
+        <div className="text-center text-red-500">
           <p>Error loading events</p>
-          <p className="text-sm mt-2">{error}</p>
+          <p className="mt-2 text-sm">{error}</p>
         </div>
       </div>
     );
@@ -86,7 +119,7 @@ const EventView: React.FC<EventViewProps> = ({
       <div className="flex justify-center items-center min-h-[400px]">
         <div className="text-center text-gray-400">
           <p className="text-lg">No events found</p>
-          <p className="text-sm mt-2">Create your first event to get started</p>
+          <p className="mt-2 text-sm">Create your first event to get started</p>
         </div>
       </div>
     );
@@ -97,7 +130,7 @@ const EventView: React.FC<EventViewProps> = ({
       <div className="flex justify-center items-center min-h-[400px]">
         <div className="text-center text-gray-400">
           <p className="text-lg">No events match your search criteria</p>
-          <p className="text-sm mt-2">Try adjusting your filters</p>
+          <p className="mt-2 text-sm">Try adjusting your filters</p>
         </div>
       </div>
     );
@@ -105,7 +138,7 @@ const EventView: React.FC<EventViewProps> = ({
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 lg:gap-8">
         {filteredEvents.map((event) => (
           <EventCard
             key={event.id}
@@ -118,7 +151,7 @@ const EventView: React.FC<EventViewProps> = ({
 
       {/* Edit Modal */}
       {editingEvent && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
           <div className="bg-surface rounded-lg w-full max-w-[886px] py-4 px-4 sm:px-8 lg:px-16 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between my-2">
               <div></div>
@@ -137,7 +170,7 @@ const EventView: React.FC<EventViewProps> = ({
 
       {/* View Modal */}
       {viewingEvent && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
           <div className="bg-surface rounded-lg w-full max-w-[886px] py-4 px-4 sm:px-8 lg:px-16 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between my-2">
               <div></div>
@@ -146,7 +179,7 @@ const EventView: React.FC<EventViewProps> = ({
               </div>
             </div>
             <div className="flex flex-col gap-4 sm:gap-6 text-primary">
-              <div className="flex flex-col gap-2 items-center">
+              <div className="flex flex-col items-center gap-2">
                 <h2 className="text-primary text-xl sm:text-2xl lg:text-[32px] font-semibold font-besley text-center">
                   {viewingEvent.title}
                 </h2>
@@ -158,14 +191,14 @@ const EventView: React.FC<EventViewProps> = ({
                   <img
                     src={getGoogleDriveImageUrl(viewingEvent.flyerUrl)}
                     alt={viewingEvent.title}
-                    className="max-w-full max-h-48 sm:max-h-64 object-contain rounded-lg"
+                    className="object-contain max-w-full rounded-lg max-h-48 sm:max-h-64"
                   />
                 </div>
               )}
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 sm:gap-6">
                 <div>
-                  <h3 className="text-base sm:text-lg font-semibold mb-2">
+                  <h3 className="mb-2 text-base font-semibold sm:text-lg">
                     Event Details
                   </h3>
                   <div className="space-y-1 text-sm sm:text-base">
@@ -188,7 +221,7 @@ const EventView: React.FC<EventViewProps> = ({
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-semibold mb-2">
+                  <h3 className="mb-2 text-base font-semibold sm:text-lg">
                     Registration Stats
                   </h3>
                   <div className="space-y-1 text-sm sm:text-base">
@@ -210,8 +243,8 @@ const EventView: React.FC<EventViewProps> = ({
                     </p>
                   </div>
 
-                  {/* View Registrants Button */}
-                  <div className="mt-4">
+                  {/* Action Buttons */}
+                  <div className="flex flex-col gap-2 mt-4">
                     <a
                       href="/admin/events/registrants"
                       className="inline-flex items-center gap-2 px-4 py-2 bg-[#732383] hover:bg-[#732383]/80 text-white rounded-lg transition-colors text-sm font-medium"
@@ -226,16 +259,32 @@ const EventView: React.FC<EventViewProps> = ({
                       </svg>
                       View All Registrants
                     </a>
+
+                    <button
+                      onClick={() => handleExportRegistrations(viewingEvent.id, viewingEvent.title)}
+                      disabled={isExporting || (viewingEvent.registrationCount || 0) === 0}
+                      className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                      </svg>
+                      {isExporting ? "Exporting..." : "Export Registrations (CSV)"}
+                    </button>
                   </div>
                 </div>
               </div>
 
               {viewingEvent.description && (
                 <div>
-                  <h3 className="text-base sm:text-lg font-semibold mb-2">
+                  <h3 className="mb-2 text-base font-semibold sm:text-lg">
                     Description
                   </h3>
-                  <p className="text-gray-300 text-sm sm:text-base">
+                  <p className="text-sm text-gray-300 sm:text-base">
                     {viewingEvent.description}
                   </p>
                 </div>

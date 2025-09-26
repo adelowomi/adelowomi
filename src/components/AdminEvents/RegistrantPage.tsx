@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { useAdminRegistrations } from "@/hooks/useAdmin";
+import { useAdminRegistrations, useAdminEvents } from "@/hooks/useAdmin";
 import { formatPhoneNumber } from "@/lib/validations/registration.validation";
 
 const RegistrantPage = () => {
@@ -10,10 +10,15 @@ const RegistrantPage = () => {
     null
   );
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [selectedEventId, setSelectedEventId] = useState<string>("all");
+  const [exportFormat, setExportFormat] = useState<"csv" | "xlsx" | "json">("csv");
+  const [isExporting, setIsExporting] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
   const itemsPerPage = 20;
 
-  const { registrations, loading, error, deleteRegistration, refetch } =
+  const { registrations, loading, error, deleteRegistration, refetch, exportRegistrations } =
     useAdminRegistrations();
+  const { events } = useAdminEvents();
 
   // Memoize the refetch call to prevent unnecessary re-renders
   const fetchCurrentPage = useCallback(() => {
@@ -50,39 +55,156 @@ const RegistrantPage = () => {
     setShowDeleteConfirm(null);
   };
 
+  const handleExportClick = () => {
+    setShowExportModal(true);
+  };
+
+  const handleExportCancel = () => {
+    setShowExportModal(false);
+  };
+
+  const handleExportConfirm = async () => {
+    if (selectedEventId === "all") {
+      alert("Please select a specific event to export registrations.");
+      return;
+    }
+
+    try {
+      setIsExporting(true);
+      const result = await exportRegistrations(selectedEventId, exportFormat);
+
+      // Create and download the file
+      const blob = new Blob([JSON.stringify(result.data, null, 2)], {
+        type: exportFormat === "json" ? "application/json" : "text/csv",
+      });
+
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+
+      const eventTitle = events.find(e => e.id === selectedEventId)?.title || "Event";
+      const timestamp = new Date().toISOString().split('T')[0];
+      link.download = `${eventTitle}_registrations_${timestamp}.${exportFormat}`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      setShowExportModal(false);
+      alert("Export completed successfully!");
+    } catch (error) {
+      console.error("Export failed:", error);
+      alert("Export failed. Please try again.");
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  // Filter registrations by selected event
+  const filteredRegistrations = selectedEventId === "all"
+    ? registrations
+    : registrations.filter(reg => reg.eventId === selectedEventId);
+
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-12">
-        <div className="text-primary text-lg">Loading registrations...</div>
+      <div className="flex items-center justify-center py-12">
+        <div className="text-lg text-primary">Loading registrations...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex justify-center items-center py-12">
-        <div className="text-red-400 text-lg">Error: {error}</div>
+      <div className="flex items-center justify-center py-12">
+        <div className="text-lg text-red-400">Error: {error}</div>
       </div>
     );
   }
 
-  const totalRegistrations = registrations.length;
+  const totalRegistrations = filteredRegistrations.length;
   const totalPages = Math.ceil(totalRegistrations / itemsPerPage);
+
+  // Get current page registrations from filtered results
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentRegistrations = filteredRegistrations.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Export Modal */}
+      {showExportModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-[#1A1A1A] border border-[#FCFCFC33] rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 className="mb-4 text-xl font-semibold text-primary">
+              Export Registrations
+            </h3>
+
+            <div className="mb-6 space-y-4">
+              <div>
+                <label className="block mb-2 text-sm font-medium text-primary">
+                  Select Event
+                </label>
+                <select
+                  value={selectedEventId}
+                  onChange={(e) => setSelectedEventId(e.target.value)}
+                  className="w-full px-3 py-2 bg-[#0A0A0A] border border-[#FCFCFC33] rounded-lg text-primary focus:outline-none focus:border-[#732383]"
+                >
+                  <option value="all">All Events</option>
+                  {events.map((event) => (
+                    <option key={event.id} value={event.id}>
+                      {event.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block mb-2 text-sm font-medium text-primary">
+                  Export Format
+                </label>
+                <select
+                  value={exportFormat}
+                  onChange={(e) => setExportFormat(e.target.value as "csv" | "xlsx" | "json")}
+                  className="w-full px-3 py-2 bg-[#0A0A0A] border border-[#FCFCFC33] rounded-lg text-primary focus:outline-none focus:border-[#732383]"
+                >
+                  <option value="csv">CSV</option>
+                  <option value="xlsx">Excel (XLSX)</option>
+                  <option value="json">JSON</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={handleExportCancel}
+                className="px-4 py-2 border border-[#FCFCFC33] rounded-lg text-primary hover:bg-[#FCFCFC0D] transition-colors"
+                disabled={isExporting}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleExportConfirm}
+                className="px-4 py-2 bg-[#732383] hover:bg-[#732383]/80 text-white rounded-lg transition-colors disabled:opacity-50"
+                disabled={isExporting || selectedEventId === "all"}
+              >
+                {isExporting ? "Exporting..." : "Export"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-[#1A1A1A] border border-[#FCFCFC33] rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-primary text-xl font-semibold mb-4">
+            <h3 className="mb-4 text-xl font-semibold text-primary">
               Confirm Delete
             </h3>
-            <p className="text-secondary mb-6">
+            <p className="mb-6 text-secondary">
               Are you sure you want to delete this registration? This action
               cannot be undone.
             </p>
-            <div className="flex gap-4 justify-end">
+            <div className="flex justify-end gap-4">
               <button
                 onClick={handleDeleteCancel}
                 className="px-4 py-2 border border-[#FCFCFC33] rounded-lg text-primary hover:bg-[#FCFCFC0D] transition-colors"
@@ -92,7 +214,7 @@ const RegistrantPage = () => {
               </button>
               <button
                 onClick={() => handleDeleteConfirm(showDeleteConfirm)}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors disabled:opacity-50"
+                className="px-4 py-2 text-white transition-colors bg-red-600 rounded-lg hover:bg-red-700 disabled:opacity-50"
                 disabled={deletingId === showDeleteConfirm}
               >
                 {deletingId === showDeleteConfirm ? "Deleting..." : "Delete"}
@@ -101,6 +223,51 @@ const RegistrantPage = () => {
           </div>
         </div>
       )}
+
+      {/* Filter and Export Controls */}
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <div>
+            <label className="block mb-2 text-sm font-medium text-primary">
+              Filter by Event
+            </label>
+            <select
+              value={selectedEventId}
+              onChange={(e) => {
+                setSelectedEventId(e.target.value);
+                setCurrentPage(1); // Reset to first page when filtering
+              }}
+              className="px-3 py-2 bg-[#0A0A0A] border border-[#FCFCFC33] rounded-lg text-primary focus:outline-none focus:border-[#732383] min-w-[200px]"
+            >
+              <option value="all">All Events</option>
+              {events.map((event) => (
+                <option key={event.id} value={event.id}>
+                  {event.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="text-sm text-primary">
+            Showing {totalRegistrations} registration{totalRegistrations !== 1 ? 's' : ''}
+          </div>
+        </div>
+
+        <button
+          onClick={handleExportClick}
+          className="flex items-center gap-2 px-4 py-2 bg-[#732383] hover:bg-[#732383]/80 text-white rounded-lg transition-colors text-sm font-medium"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+          </svg>
+          Export Registrations
+        </button>
+      </div>
 
       <div className="border-[0.5px] border-solid border-[#FCFCFC33] rounded-lg p-3 flex items-center justify-between bg-[#FCFCFC0D]">
         <h1 className="w-[120px] text-[16px] font-archivo font-semibold text-[#fff]">
@@ -130,12 +297,14 @@ const RegistrantPage = () => {
       </div>
 
       <div className="flex flex-col gap-6">
-        {registrations.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-secondary text-lg">No registrations found.</p>
+        {currentRegistrations.length === 0 ? (
+          <div className="py-12 text-center">
+            <p className="text-lg text-secondary">
+              {selectedEventId === "all" ? "No registrations found." : "No registrations found for selected event."}
+            </p>
           </div>
         ) : (
-          registrations.map((registration) => (
+          currentRegistrations.map((registration) => (
             <div
               key={registration.id}
               className="border-[0.5px] border-solid border-[#FCFCFC33] rounded-lg p-3 flex items-center justify-between"
@@ -164,12 +333,12 @@ const RegistrantPage = () => {
               <div className="w-[80px] flex justify-center">
                 <button
                   onClick={() => handleDeleteClick(registration.id)}
-                  className="p-2 text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded-lg transition-colors"
+                  className="p-2 text-red-400 transition-colors rounded-lg hover:text-red-300 hover:bg-red-400/10"
                   title="Delete registration"
                   disabled={deletingId === registration.id}
                 >
                   {deletingId === registration.id ? (
-                    <div className="w-4 h-4 border-2 border-red-400 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-red-400 rounded-full border-t-transparent animate-spin"></div>
                   ) : (
                     <svg
                       width="16"
@@ -187,8 +356,8 @@ const RegistrantPage = () => {
         )}
       </div>
 
-      {registrations.length > 0 && (
-        <div className="flex justify-end space-x-4 mt-4">
+      {totalRegistrations > 0 && (
+        <div className="flex justify-end mt-4 space-x-4">
           <h2 className="text-[#fff] text-[16px] font-archivo font-light">
             {Math.min(itemsPerPage, totalRegistrations)} out of{" "}
             {totalRegistrations}
