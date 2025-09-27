@@ -180,10 +180,12 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
       }
 
       // Simulate upload progress (since we can't track real progress easily)
+      let progressValue = 0;
       const progressInterval = setInterval(() => {
         setUploadProgress((prev) => {
           if (prev >= 90) return prev;
-          return prev + Math.random() * 10;
+          progressValue += 8; // Consistent increment instead of random
+          return Math.min(progressValue, 90);
         });
       }, 500);
 
@@ -215,16 +217,16 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
       <div className="bg-black border border-[#FCFCFC33] rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-primary text-2xl font-semibold font-besley">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-semibold text-primary font-besley">
             Upload Video
           </h2>
           <button
             onClick={onClose}
-            className="text-primary/60 hover:text-primary transition-colors"
+            className="transition-colors text-primary/60 hover:text-primary"
           >
             <svg
               width="24"
@@ -248,7 +250,7 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* File Upload Area */}
           <div>
-            <label className="block text-sm font-medium font-archivo text-primary mb-2">
+            <label className="block mb-2 text-sm font-medium font-archivo text-primary">
               Video File *
             </label>
             <div
@@ -265,19 +267,19 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
                 <div>
                   {file ? (
                     <div className="text-primary">
-                      <p className="font-archivo mb-2 font-medium">
+                      <p className="mb-2 font-medium font-archivo">
                         {file.name}
                       </p>
-                      <p className="text-primary/60 text-sm font-archivo">
+                      <p className="text-sm text-primary/60 font-archivo">
                         {(file.size / (1024 * 1024)).toFixed(2)} MB
                       </p>
                     </div>
                   ) : (
                     <>
-                      <p className="text-primary font-archivo mb-2">
+                      <p className="mb-2 text-primary font-archivo">
                         Drag and drop a video here, or click to select
                       </p>
-                      <p className="text-primary/60 text-sm font-archivo">
+                      <p className="text-sm text-primary/60 font-archivo">
                         Supports: MP4, MPEG, MOV, AVI, WebM (max 100MB)
                       </p>
                     </>
@@ -294,7 +296,7 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-4 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg transition-colors"
+                className="px-4 py-2 mt-4 transition-colors rounded-lg bg-primary/10 hover:bg-primary/20 text-primary"
               >
                 {file ? "Change Video" : "Select Video"}
               </button>
@@ -304,13 +306,13 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
           {/* Upload Progress */}
           {loading && (
             <div>
-              <div className="flex justify-between text-sm text-primary mb-2">
+              <div className="flex justify-between mb-2 text-sm text-primary">
                 <span>Uploading...</span>
                 <span>{Math.round(uploadProgress)}%</span>
               </div>
-              <div className="w-full bg-gray-700 rounded-full h-2">
+              <div className="w-full h-2 bg-gray-700 rounded-full">
                 <div
-                  className="bg-primary h-2 rounded-full transition-all duration-300"
+                  className="h-2 transition-all duration-300 rounded-full bg-primary"
                   style={{ width: `${uploadProgress}%` }}
                 />
               </div>
@@ -319,7 +321,7 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
 
           {/* Title */}
           <div>
-            <label className="block text-sm font-medium font-archivo text-primary mb-2">
+            <label className="block mb-2 text-sm font-medium font-archivo text-primary">
               Title *
             </label>
             <input
@@ -335,7 +337,7 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium font-archivo text-primary mb-2">
+            <label className="block mb-2 text-sm font-medium font-archivo text-primary">
               Description
             </label>
             <textarea
@@ -350,7 +352,7 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
 
           {/* Category */}
           <div>
-            <label className="block text-sm font-medium font-archivo text-primary mb-2">
+            <label className="block mb-2 text-sm font-medium font-archivo text-primary">
               Category *
             </label>
             <select
@@ -369,7 +371,7 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
           {/* Event Association */}
           {formData.category === "EVENT" && (
             <div>
-              <label className="block text-sm font-medium font-archivo text-primary mb-2">
+              <label className="block mb-2 text-sm font-medium font-archivo text-primary">
                 Associate with Event
               </label>
               <select
@@ -391,7 +393,7 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
 
           {/* Error Message */}
           {error && (
-            <div className="bg-red-900/20 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg text-sm">
+            <div className="px-4 py-3 text-sm text-red-400 border rounded-lg bg-red-900/20 border-red-500/30">
               {error}
             </div>
           )}
@@ -405,7 +407,7 @@ const AdminVideoUpload: React.FC<AdminVideoUploadProps> = ({
               disabled={loading}
               textStyle="text-primary/60 font-archivo"
               padding="px-6 py-3"
-              className="border border-[#FCFCFC33] hover:border-primary/50"
+              variant="outline"
             />
             <Button
               type="submit"

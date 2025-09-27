@@ -275,6 +275,21 @@ const EventView: React.FC<EventViewProps> = ({
                       </svg>
                       {isExporting ? "Exporting..." : "Export Registrations (CSV)"}
                     </button>
+
+                    <a
+                      href={`/admin/emails?eventId=${viewingEvent.id}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
+                      </svg>
+                      Send Email to Participants
+                    </a>
                   </div>
                 </div>
               </div>

@@ -52,6 +52,8 @@ model Registration {
   areaOfInterest  String
   expectations    String?         @db.Text
   registeredAt    DateTime        @default(now())
+  attended        Boolean         @default(false)
+  attendedAt      DateTime?
   event           Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   @@unique([eventId, email])

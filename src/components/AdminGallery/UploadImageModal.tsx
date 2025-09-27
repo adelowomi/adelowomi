@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Event, GalleryImage } from "@/types/event.types";
 import Button from "@/components/ui/Button";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { generateFileId } from "@/lib/utils/id-generator";
 
 interface UploadImageModalProps {
   onClose: () => void;
@@ -139,7 +140,7 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
           preview,
           title: fileName,
           description: "",
-          id: Math.random().toString(36).substr(2, 9),
+          id: generateFileId(file),
         };
 
         setFiles((prev) => [...prev, fileWithPreview]);
@@ -264,16 +265,16 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
       <div className="bg-black border border-[#FCFCFC33] rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-primary text-2xl font-semibold font-besley">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-semibold text-primary font-besley">
             Upload Image
           </h2>
           <button
             onClick={onClose}
-            className="text-primary/60 hover:text-primary transition-colors"
+            className="transition-colors text-primary/60 hover:text-primary"
           >
             <svg
               width="24"
@@ -297,7 +298,7 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* File Upload Area */}
           <div>
-            <label className="block text-sm font-medium font-archivo text-primary mb-2">
+            <label className="block mb-2 text-sm font-medium font-archivo text-primary">
               Image Files *
             </label>
             <div
@@ -312,10 +313,10 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
               <div className="space-y-4">
                 <UploadIcon />
                 <div>
-                  <p className="text-primary font-archivo mb-2">
+                  <p className="mb-2 text-primary font-archivo">
                     Drag and drop images here, or click to select multiple files
                   </p>
-                  <p className="text-primary/60 text-sm font-archivo">
+                  <p className="text-sm text-primary/60 font-archivo">
                     Supports: JPEG, PNG, WebP, GIF (max 10MB each)
                   </p>
                 </div>
@@ -331,7 +332,7 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-4 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg transition-colors"
+                className="px-4 py-2 mt-4 transition-colors rounded-lg bg-primary/10 hover:bg-primary/20 text-primary"
               >
                 Select Images
               </button>
@@ -341,10 +342,10 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
           {/* Selected Files */}
           {files.length > 0 && (
             <div>
-              <label className="block text-sm font-medium font-archivo text-primary mb-4">
+              <label className="block mb-4 text-sm font-medium font-archivo text-primary">
                 Selected Images ({files.length})
               </label>
-              <div className="space-y-4 max-h-96 overflow-y-auto">
+              <div className="space-y-4 overflow-y-auto max-h-96">
                 {files.map((fileData) => (
                   <div
                     key={fileData.id}
@@ -356,7 +357,7 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
                         <img
                           src={fileData.preview}
                           alt="Preview"
-                          className="w-20 h-20 object-cover rounded-lg"
+                          className="object-cover w-20 h-20 rounded-lg"
                         />
                       </div>
 
@@ -396,9 +397,9 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
                         {/* Upload Progress */}
                         {loading &&
                           uploadProgress[fileData.id] !== undefined && (
-                            <div className="w-full bg-gray-700 rounded-full h-2">
+                            <div className="w-full h-2 bg-gray-700 rounded-full">
                               <div
-                                className="bg-primary h-2 rounded-full transition-all duration-300"
+                                className="h-2 transition-all duration-300 rounded-full bg-primary"
                                 style={{
                                   width: `${uploadProgress[fileData.id]}%`,
                                 }}
@@ -412,7 +413,7 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
                         type="button"
                         onClick={() => removeFile(fileData.id)}
                         disabled={loading}
-                        className="flex-shrink-0 p-2 text-primary/60 hover:text-red-400 transition-colors disabled:opacity-50"
+                        className="flex-shrink-0 p-2 transition-colors text-primary/60 hover:text-red-400 disabled:opacity-50"
                       >
                         <RemoveIcon />
                       </button>
@@ -425,7 +426,7 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
 
           {/* Event Selection */}
           <div>
-            <label className="block text-sm font-medium font-archivo text-primary mb-2">
+            <label className="block mb-2 text-sm font-medium font-archivo text-primary">
               Associate with Event (applies to all images)
             </label>
             <select
@@ -445,7 +446,7 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
 
           {/* Error Message */}
           {error && (
-            <div className="bg-red-900/20 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg text-sm">
+            <div className="px-4 py-3 text-sm text-red-400 border rounded-lg bg-red-900/20 border-red-500/30">
               {error}
             </div>
           )}
@@ -459,7 +460,7 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
               disabled={loading}
               textStyle="text-primary/60 font-archivo"
               padding="px-6 py-3"
-              className="border border-[#FCFCFC33] hover:border-primary/50"
+              variant="outline"
             />
             <Button
               type="submit"

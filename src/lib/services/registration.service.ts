@@ -449,6 +449,60 @@ export class RegistrationService {
   }
 
   /**
+   * Get all attendees for a specific event (for attendance management)
+   */
+  static async getEventAttendees(eventId: string): Promise<Registration[]> {
+    try {
+      const attendees = await prisma.registration.findMany({
+        where: { eventId },
+        orderBy: [
+          { attended: "desc" }, // Show attended first
+          { firstName: "asc" },
+        ],
+      });
+
+      return attendees;
+    } catch (error) {
+      console.error("Error fetching event attendees:", error);
+      throw new Error("Failed to fetch event attendees");
+    }
+  }
+
+  /**
+   * Mark attendance for a registration
+   */
+  static async markAttendance(
+    registrationId: string,
+    attended: boolean
+  ): Promise<Registration> {
+    try {
+      const registration = await prisma.registration.findUnique({
+        where: { id: registrationId },
+      });
+
+      if (!registration) {
+        throw new Error("Registration not found");
+      }
+
+      const updatedRegistration = await prisma.registration.update({
+        where: { id: registrationId },
+        data: {
+          attended,
+          attendedAt: attended ? new Date() : null,
+        },
+      });
+
+      return updatedRegistration;
+    } catch (error) {
+      console.error("Error marking attendance:", error);
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error("Failed to mark attendance");
+    }
+  }
+
+  /**
    * Update registration details (limited fields)
    */
   static async updateRegistration(
