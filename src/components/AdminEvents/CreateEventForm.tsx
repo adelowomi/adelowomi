@@ -198,13 +198,13 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
   return (
     <div className="w-full">
       {error && (
-        <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-3 rounded-lg mb-6">
+        <div className="px-4 py-3 mb-6 text-red-500 border border-red-500 rounded-lg bg-red-500/10">
           {error}
         </div>
       )}
 
       {success && (
-        <div className="bg-green-500/10 border border-green-500 text-green-500 px-4 py-3 rounded-lg mb-6">
+        <div className="px-4 py-3 mb-6 text-green-500 border border-green-500 rounded-lg bg-green-500/10">
           Event created successfully! Closing modal...
         </div>
       )}
@@ -249,7 +249,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
         </div>
 
         {/* Date and Time */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <label className="block text-sm font-medium text-primary">
               Date *
@@ -327,7 +327,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
         </div>
 
         {/* Capacity and Flyer URL */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <label className="block text-sm font-medium text-primary">
               Capacity *
@@ -378,7 +378,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
                   <button
                     type="button"
                     onClick={removeFlyerFile}
-                    className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-sm hover:bg-red-600 transition-colors"
+                    className="absolute flex items-center justify-center w-6 h-6 text-sm text-white transition-colors bg-red-500 rounded-full -top-2 -right-2 hover:bg-red-600"
                   >
                     ×
                   </button>

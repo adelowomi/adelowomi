@@ -10,7 +10,7 @@ export const SUPPORTED_IMAGE_TYPES = [
 ] as const;
 
 // File size limits (in bytes)
-export const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
+export const MAX_IMAGE_SIZE = 100 * 1024 * 1024; // 100MB
 export const MAX_THUMBNAIL_SIZE = 2 * 1024 * 1024; // 2MB
 
 // Image file validation schema

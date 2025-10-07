@@ -106,9 +106,9 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
       return "Invalid file type. Please select JPEG, PNG, WebP, or GIF files.";
     }
 
-    const maxSize = 10 * 1024 * 1024; // 10MB
+    const maxSize = 100 * 1024 * 1024; // 100MB
     if (file.size > maxSize) {
-      return "File size must be less than 10MB";
+      return "File size must be less than 100MB";
     }
 
     return null;
@@ -317,7 +317,7 @@ const UploadImageModal: React.FC<UploadImageModalProps> = ({
                     Drag and drop images here, or click to select multiple files
                   </p>
                   <p className="text-sm text-primary/60 font-archivo">
-                    Supports: JPEG, PNG, WebP, GIF (max 10MB each)
+                    Supports: JPEG, PNG, WebP, GIF (max 100MB each)
                   </p>
                 </div>
               </div>
