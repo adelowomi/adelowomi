@@ -166,3 +166,19 @@ enum QuestionType {
   DATE
   TIME
 }
+
+model CorperApplication {
+  id            String   @id @default(cuid())
+  fullName      String
+  email         String
+  phone         String
+  serviceState  String
+  batch         String
+  primaryRole   String
+  otherRole     String?
+  portfolio     String?
+  experience    String?  @db.Text
+  why           String   @db.Text
+  availability  String?
+  submittedAt   DateTime @default(now())
+}

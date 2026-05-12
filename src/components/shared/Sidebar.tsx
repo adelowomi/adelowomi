@@ -159,6 +159,38 @@ const Sidebar = () => {
       ),
     },
     {
+      href: "/admin/applications",
+      label: "Applications",
+      icon: (
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 1C2.89543 1 2 1.89543 2 3V17C2 18.1046 2.89543 19 4 19H16C17.1046 19 18 18.1046 18 17V7L12 1H4Z"
+            stroke={isActive("/admin/applications") ? "#732383" : "#FCFCFC"}
+            strokeWidth="1.5"
+            fill="none"
+          />
+          <path
+            d="M12 1V7H18"
+            stroke={isActive("/admin/applications") ? "#732383" : "#FCFCFC"}
+            strokeWidth="1.5"
+            fill="none"
+          />
+          <path
+            d="M6 10H14M6 13H14M6 16H10"
+            stroke={isActive("/admin/applications") ? "#732383" : "#FCFCFC"}
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
+      ),
+    },
+    {
       href: "/admin/users",
       label: "Admin Users",
       icon: (
