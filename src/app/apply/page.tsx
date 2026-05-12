@@ -118,6 +118,10 @@ export default function CorperApplicationForm() {
     return (
       <div className="caf-wrap">
         <Styles />
+        <div className="caf-bg-grid" />
+        <div className="caf-orb caf-orb-1" />
+        <div className="caf-orb caf-orb-2" />
+        <div className="caf-orb caf-orb-3" />
         <div className="caf-card caf-success">
           <div className="caf-success-icon">✓</div>
           <h2>Application received</h2>
@@ -136,6 +140,10 @@ export default function CorperApplicationForm() {
   return (
     <div className="caf-wrap">
       <Styles />
+      <div className="caf-bg-grid" />
+      <div className="caf-orb caf-orb-1" />
+      <div className="caf-orb caf-orb-2" />
+      <div className="caf-orb caf-orb-3" />
       <div className="caf-card">
         <div className="caf-header">
           <div className="caf-kicker">&gt; CORPER APPLICATION</div>
@@ -360,16 +368,97 @@ function Styles() {
         display: flex;
         justify-content: center;
         line-height: 1.5;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* ---- Animated background grid ---- */
+      .caf-bg-grid {
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(185, 117, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(185, 117, 255, 0.03) 1px, transparent 1px);
+        background-size: 64px 64px;
+        mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 70%);
+        -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+        animation: caf-grid-drift 20s linear infinite;
+      }
+
+      @keyframes caf-grid-drift {
+        0% { background-position: 0 0; }
+        100% { background-position: 64px 64px; }
+      }
+
+      /* ---- Floating gradient orbs ---- */
+      .caf-orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.35;
+        pointer-events: none;
+        z-index: 0;
+        will-change: transform;
+      }
+
+      .caf-orb-1 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, #b975ff 0%, transparent 70%);
+        top: -10%;
+        left: -8%;
+        animation: caf-float-1 18s ease-in-out infinite;
+      }
+
+      .caf-orb-2 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, #6e30a7 0%, transparent 70%);
+        bottom: -5%;
+        right: -5%;
+        animation: caf-float-2 22s ease-in-out infinite;
+      }
+
+      .caf-orb-3 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, #ff6b8a 0%, transparent 70%);
+        top: 40%;
+        right: 15%;
+        opacity: 0.15;
+        animation: caf-float-3 15s ease-in-out infinite;
+      }
+
+      @keyframes caf-float-1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(60px, 40px) scale(1.1); }
+        66% { transform: translate(-30px, 80px) scale(0.95); }
+      }
+
+      @keyframes caf-float-2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(-50px, -60px) scale(1.08); }
+        66% { transform: translate(40px, -30px) scale(0.92); }
+      }
+
+      @keyframes caf-float-3 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-70px, 50px) scale(1.15); }
       }
 
       .caf-card {
         width: 100%;
         max-width: 680px;
-        background: linear-gradient(180deg, var(--caf-card) 0%, var(--caf-bg) 100%);
+        background: linear-gradient(180deg, rgba(20, 9, 31, 0.85) 0%, rgba(10, 6, 18, 0.92) 100%);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         border: 1px solid var(--caf-border);
         border-radius: 20px;
         padding: 48px;
         position: relative;
+        z-index: 1;
       }
 
       @media (max-width: 600px) {
@@ -396,7 +485,21 @@ function Styles() {
       }
       @media (max-width: 600px) { .caf-title { font-size: 34px; } }
 
-      .caf-accent { color: var(--caf-accent); font-style: italic; font-weight: 600; }
+      .caf-accent {
+        font-style: italic;
+        font-weight: 600;
+        background: linear-gradient(90deg, #b975ff 0%, #e0b0ff 50%, #b975ff 100%);
+        background-size: 200% 100%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: caf-shimmer 4s ease-in-out infinite;
+      }
+
+      @keyframes caf-shimmer {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
 
       .caf-sub {
         color: var(--caf-muted);
@@ -600,6 +703,18 @@ function Styles() {
         justify-content: center;
         margin: 0 auto 24px;
         box-shadow: 0 10px 40px var(--caf-accent-glow);
+        animation: caf-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both, caf-pulse-ring 2s ease-out infinite 0.5s;
+      }
+
+      @keyframes caf-pop {
+        0% { transform: scale(0); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+
+      @keyframes caf-pulse-ring {
+        0% { box-shadow: 0 10px 40px var(--caf-accent-glow), 0 0 0 0 rgba(185, 117, 255, 0.3); }
+        70% { box-shadow: 0 10px 40px var(--caf-accent-glow), 0 0 0 20px rgba(185, 117, 255, 0); }
+        100% { box-shadow: 0 10px 40px var(--caf-accent-glow), 0 0 0 0 rgba(185, 117, 255, 0); }
       }
 
       .caf-success h2 {
